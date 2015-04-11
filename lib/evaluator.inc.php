@@ -1,12 +1,19 @@
 <?php
 
 $userFile = "../db/users.csv";
-
+$numberFile = "../db/usersNumber.txt";
 function createUser($user){
+	// Garder des return false dans les if, ou mettre un flag pour pouvoir print plusieurs erreurs ? - UJ
 	global $userFile;
+	global $numberFile;
 	initCsvFile($userFile);
+	initNumberOfUsersFile($numberFile);
 	if(!isValidCsvFile($userFile)){
 		echo "ERR: CSV file not valid";
+		return false;
+	}
+	if(!isValidNumberOfUsersFile($numberFile)){
+		echo "ERR : Number of users not valid";
 		return false;
 	}
 	if(!isValidUser($user)){
@@ -14,6 +21,8 @@ function createUser($user){
 		return false;
 	}
 	//TODO: If the user exists in the file.
+	$user['id'] = getNumberOfUsers($numberFile) +1;
+	setNumberOfUsers($user['id'], $numberFile);
 	if(!addUser($user, $userFile)){
 		echo "ERR: IO Error";
 		return false;
@@ -35,6 +44,10 @@ function createUser($user){
 
 /* PRIMITIVE FUNCTIONS */
 
+
+/* CSV FILE*/
+
+
 function initCsvFile($path){
 	if(file_exists($path)){
 		return false;
@@ -55,18 +68,19 @@ function isValidCsvFile($file){
 	}
 	return true;
 }
+
+/* USER MANAGEMENT */
+
+
 function isValidUser($user){
 	/*
 		A user, or evaluator, is an array composed of : 
 		$u['id'] : A unique number intended to fasten the access in the CSV file
 		$u['nickname'] : SELF EKSPLENATORI LULULULUL :-{D
-		$u['hash'] : His password hash, password_hash()'ed.
+		$u['pw'] : His password hash, password_hash()'ed.
 		$u['mail'] : Maybe ?..
 	*/
 	$nicknameRegex = "/^[a-zA-Z]\w{5,14}$/";
-	if(!is_int($user['id'])){
-		return false;
-	}
 	if(!preg_match($nicknameRegex, $user['nickname'])){
 		return false;
 	}
@@ -80,6 +94,29 @@ function addUser($user, $userFile){
 	if($f == false){ //TODO: Find more elegant.
 		return false;
 	}
+	ksort($user);
 	return fputcsv($f, $user);
+}
+/* NUMBER OF USERS FILE AND MANAGEMENT */
+
+
+function initNumberOfUsersFile($path){
+	if(file_exists($path)){
+		return false;
+	}
+	file_put_contents($path, 0);
+	return true;
+}
+function isValidNumberOfUsersFile($file){
+	// TODO: If it's not valid, recount and make one valid
+	// TODO: Make it actually work
+	//return is_int(file_get_contents($file));
+	return true;
+}
+function getNumberOfUsers($file){
+	return file_get_contents($file);
+}
+function setNumberOfUsers($numberOfUsers, $file){
+	file_put_contents($file, $numberOfUsers, LOCK_EX);
 }
 ?>
