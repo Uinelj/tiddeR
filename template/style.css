@@ -1,0 +1,198 @@
+/* imports */
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,400italic&subset=latin);
+@import url(http://fonts.googleapis.com/css?family=Playfair+Display+SC:700,900);
+@import url(http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+/* general */
+html, body{
+	margin: 0;
+	padding: 0;
+	line-height: 1.5em;
+	font-family: "Merriweather", georgia, serif;
+}
+
+a{
+	color: #666666;
+	text-decoration: none;
+}
+
+h1, h2, h3{
+	margin: 0;
+	font-family: 'Playfair Display SC', serif;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+/* struct */
+
+.center{
+	margin: auto;
+	width: 21cm;
+}
+
+.main{
+	display: inline-block;
+	width: 15cm;
+	margin: 0;
+}
+
+.side{
+	vertical-align: top;
+	display: inline-block;
+	width: 3cm;
+}
+
+/* top */
+
+#title{
+	-webkit-transform:rotateY(180deg);
+	-moz-transform:rotateY(180deg);
+	-o-transform:rotateY(180deg);
+	-ms-transform:rotateY(180deg);
+	transform:rotateY(180deg);
+	unicode-bidi:bidi-override;
+	direction:rtl;
+	font-size: 1.75rem;
+	font-weight: 900;
+	margin: 1.5rem 0;
+}
+
+/* sidebar */
+
+.sidebar-element{
+	margin-bottom: 1em;
+}
+
+#sidebar a{
+	color: #f0f0f0;
+	text-shadow: none;
+	transition: all 1s;
+}
+
+#sidebar a.selected{
+	color: #bbbbbb;
+}
+
+#sidebar:hover a{
+	color: #999999;
+	transition: all .5s;
+}
+
+#sidebar:hover a.selected{
+	color: black;
+}
+
+/* search */
+
+#search input[type=text]{
+	margin: 1.5rem 0;
+	width: 100%;
+	font-size: 1.2rem;
+	font-family: "Merriweather", georgia, serif;
+	border: 1px solid white;
+	border-bottom: 1px solid #f0f0f0;
+	color: #bbbbbb;
+	transition: all 1s;
+}
+
+#search input[type=text]:hover{
+	border-bottom: 1px solid #444444;
+	transition: all .5s;
+}
+
+#search input[type=text]:focus{
+	color: black;
+	transition: all 1s;
+}
+
+ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+/* posts */
+
+.post li{
+	display: inline-block;
+}
+
+.post{
+	padding: 1em 0;
+}
+
+.post:first-child{
+	padding: 0 0 1em;
+}
+
+.post:last-child{
+	padding: 1em 0 0;
+}
+
+.post+.post{
+	border-top: 1px solid black;
+}
+
+/* tags */
+
+.tags{
+	display: inline-block;
+	width: 49%;
+}
+
+.tags li{
+	display: inline;
+}
+
+.tags a{
+	color: #bbbbbb;
+	font-family: 'Playfair Display SC', serif;
+	transition: all 1s;
+}
+
+.tags li+li:before{
+	content: " | ";
+	color: #f0f0f0;
+	transition: all 1s;
+}
+
+.tags:hover a{
+	color: black;
+	transition: all .5s;
+}
+
+.tags:hover li+li:before{
+	color: #999999;
+	transition: all .5s;
+}
+
+/* rating */
+.rating{
+	display: inline-block;
+	width: 50%;
+	text-align: right;
+	font-family: 'Playfair Display SC', serif;
+}
+
+.rating li{
+	display: inline;
+	color: #bbbbbb;
+	transition: all 1s;
+}
+
+.rating .fa-star-o{
+	color: #f0f0f0;
+	transition: all 1s;
+}
+
+.rating:hover li{
+	color: black;
+	transition: all .5s;
+}
+
+.rating:hover .fa-star-o{
+	color: #999999;
+	transition: all .5s;
+}
