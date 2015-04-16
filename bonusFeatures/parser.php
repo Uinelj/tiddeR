@@ -1,6 +1,6 @@
 <?php
 /*
-	Sample strings : 
+	Sample strings :
 
 	~uinelj in html
 	~uinelj in html|css
@@ -9,7 +9,7 @@
 	html by rating
 	* by date ( equivalent to 'by date')
 
-	Complex string example : 
+	Complex string example :
 
 	~uinelj|~akkes in html|css|php by rating
 */
@@ -19,17 +19,20 @@ function parseString($string){
 	for($i=0; $i<count($exploded); $i++){
 		if($exploded[$i][0]=="~"){
 			$data['usernames'] = explode("|", str_replace("~", "", $exploded[$i]));
-		}
+		}else
 		if($exploded[$i]=="in"){
 			$data['tags'] = explode("|", $exploded[$i+1]);
 			$i++; //Ignore next word.
-		}
+		}else
 		if($exploded[$i] == "by"){
 			$data['order'] = $exploded[$i+1];
 			$i++;
+		}else{
+			$data['search'] .= $exploded[$i] . " ";
 		}
+
 	}
 	var_dump($data);
 }
-parseString("in html|css|php by date");
+parseString("by rating in html|css");
 ?>
