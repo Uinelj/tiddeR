@@ -25,6 +25,48 @@ a:hover{
 	text-decoration: underline;
 }
 
+.disapear, .disapear a{
+	color: #bbbbbb;
+	transition: all 1s;
+}
+
+.disapear:hover, .disapear:hover a{
+	color: black;
+	transition: all .5s;
+}
+
+/* grid 
+ * DAT ULTIMATE TOOL
+ * OMG I ♡ GRIDS SO MUCH
+ * blblblblblblbl */
+.block{
+	display: inline-block;
+	margin: 0;
+	margin-right: -.25em;
+	padding: 0;
+	vertical-align: top;
+}
+
+.full{
+	width: 99.99999%;
+}
+
+.half{
+	width: 49.99999%;
+}
+
+.third{
+	width: 33.33333%;
+}
+
+.three-quarter{
+	width: 74.99999%;
+}
+
+.quarter{
+	width: 24.99999%;
+}
+
 /* struct */
 
 .center{
@@ -32,15 +74,15 @@ a:hover{
 	width: 21cm;
 }
 
+#top{
+	margin: 1.5rem auto;
+}
+
 .main{
-	display: inline-block;
 	width: 15cm;
-	margin: 0;
 }
 
 .side{
-	vertical-align: top;
-	display: inline-block;
 	width: 3cm;
 }
 
@@ -56,7 +98,6 @@ a:hover{
 	direction:rtl;
 	font-size: 1.75rem;
 	font-weight: 900;
-	margin: 1.5rem 0;
 }
 
 /* sidebar */
@@ -87,7 +128,6 @@ a:hover{
 /* search */
 
 #search input[type=text]{
-	margin: 1.5rem 0;
 	width: 100%;
 	font-size: 1.2rem;
 	font-family: "Merriweather", georgia, serif;
@@ -113,6 +153,10 @@ ul{
 	list-style: none;
 }
 
+#user{
+	text-align: right;
+}
+
 /* posts */
 
 .post li{
@@ -135,21 +179,18 @@ ul{
 	border-top: 1px solid black;
 }
 
+.title a{
+	color: black;
+}
+
+/* date */
+.date{
+	text-align: right;
+}
+
 /* tags */
-
 .tags{
-	display: inline-block;
-	width: 49%;
-}
-
-.tags li{
-	display: inline;
-}
-
-.tags a{
-	color: #bbbbbb;
 	font-family: 'Playfair Display SC', serif;
-	transition: all 1s;
 }
 
 .tags li+li:before{
@@ -158,28 +199,24 @@ ul{
 	transition: all 1s;
 }
 
-.tags:hover a{
-	color: black;
-	transition: all .5s;
-}
-
-.tags:hover li+li:before{
+.disapear:hover .tags li+li:before{
 	color: #999999;
 	transition: all .5s;
 }
 
-/* rating */
-.rating{
-	display: inline-block;
-	width: 50%;
-	text-align: right;
-	font-family: 'Playfair Display SC', serif;
+/* author */
+.author{
+	text-align: center;
 }
 
-.rating li{
-	display: inline;
-	color: #bbbbbb;
-	transition: all 1s;
+/* rating */
+.rating{
+	text-align: right;
+}
+
+.rating a{
+	padding: .5mm;
+	text-decoration: none;
 }
 
 .rating .fa-star-o{
@@ -187,12 +224,17 @@ ul{
 	transition: all 1s;
 }
 
-.rating:hover li{
-	color: black;
+.disapear:hover .rating .fa-star-o{
+	color: #999999;
 	transition: all .5s;
 }
 
-.rating:hover .fa-star-o{
-	color: #999999;
-	transition: all .5s;
+/* rating interaction */
+.rating:hover ul:hover li a:before,
+.rating:hover li a:before{
+	content: "\f005";
+}
+
+.rating li:hover ~ li a:before{
+	content: "\f006	";
 }
