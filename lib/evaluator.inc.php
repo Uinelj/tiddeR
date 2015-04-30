@@ -2,6 +2,18 @@
  
 $userFile = "../db/users.csv";
 $numberFile = "../db/usersNumber.txt";
+/*
+        createUser($user) :
+
+        * Vérifie la validité des fichiers de database ( users.csv et usersNumber.txt )
+        * Incrémente le nombre d'users dans usersNumber.txt
+        * Tente d'ajouter l'user dans le fichier CSV.
+
+        RETOUR :
+
+        true - Si tout s'est bien passé
+        false + echo - Si il y a eu un souci. Le echo donne des infos. 
+*/
 function createUser($user){
         // Garder des return false dans les if, ou mettre un flag pour pouvoir print plusieurs erreurs ? - UJ
         global $userFile;
@@ -32,31 +44,39 @@ function createUser($user){
         }
         return true;
 }
- 
+ /*
+        login($user)
+
+        * Vérifie l'existence de l'user
+        * Charge l'user qui correspond à l'entrée utilisateur
+        * Vérifie les hashes
+
+        RETOUR :
+
+        true - Si tout est correct, ie. on peut ouvrir une session
+        false + echo - Si il y a un souci, avec un descriptif en echo.
+ */
+
 function login($user){
         global $userFile;
         if(!userExists($user)){
+        		echo "ERR: User doesn't exists";
                 return false;
         }
         $userFromDb = loadUser($user, $userFile);
-        if(isCorrectPassword($user['password'], $userFromDb['password'])){
-                echo "Login validé\n";
-                return $userFromDb;
+        // if(isCorrectPassword($user['password'], $userFromDb['password'])){
+        //         echo "Login validé\n";
+        //         return $userFromDb;
+        // }
+        if(password_verify($user['password'], $userFromDb['password'])){
+			$_SESSION = $userFromDb;    
+        	return true;
         }
+        echo "ERR : Incorrect password <br />";
+        //echo "DB : " . $userFromDb['password'] . "<br />";
+        //echo "USER : " . $user['password'];
         return false;
 }
-//      }
-//      storeUser($user, $userFile);
-// }
-// function deleteEvaluator($name){}
-// function loadEvaluator($name){}
-// function addLink($link, $a){}
-// function editLink(){}
-// function deleteLink(){}
-// function addComment(){}
-// function rankLink(){}
-// function isOwnerOf(){}
-// function evaluatorExists(){}
  
 /* PRIMITIVE FUNCTIONS */
  
@@ -72,8 +92,8 @@ function initCsvFile($path){
         return true;
 }
 function isValidCsvFile($file){
-        //According to RFC 4180, MIME is text/csv. Excel is a douche.
-        /*
+        /* 
+        According to RFC 4180, MIME is text/csv. Excel is a douche.
                 TODO: Find a way to :
                 - Recognize the MIME type
                 OR
@@ -91,15 +111,13 @@ function isValidCsvFile($file){
 function isValidUser($user){
         /*
                 A user, or evaluator, is an array composed of :
-                $u['id'] : A unique number intended to fasten the access in the CSV file
                 $u['nickname'] : SELF EKSPLENATORI LULULULUL :-{D
-                $u['pw'] : His password hash, password_hash()'ed.
-                $u['mail'] : Maybe ?..
+                $u['password'] : His password hash, password_hash()'ed.
+                $u['mail] : SAME
         */
-        $nicknameRegex = "/[\w\d]\w{5,14}/"; //Any
+        $nicknameRegex = "/[\w\d]\w{5,14}/"; //Nickname can be 5-14 characters long, alphanumeric.
         if(!preg_match($nicknameRegex, $user['nickname'])){
                 return false;
-                //return true;
         }
         if(true){
                 //TODO : Check the hash's validity. See password_get_info().
@@ -108,10 +126,9 @@ function isValidUser($user){
 }
 function addUser($user, $userFile){
         $f = fopen($userFile, "a+");
-        if($f == false){ //TODO: Find more elegant.
+        if($f == false){ //Find more elegant ?
                 return false;
         }
-        //ksort($user);
         return fputcsv($f, $user);
 }
 function userExists($user, $userFile){
@@ -119,31 +136,25 @@ function userExists($user, $userFile){
         $f = fopen($userFile, "r");
         while(!feof($f)){
                 $cur = fgetcsv($f);
-                //var_dump(fgetcsv($f));
-                if($cur[2] == $user['mail']){
-                        return true;
-                }
-                if($cur[0] == $user['nickname']){
+                if(($cur[2] == $user['mail']) || ($cur[0] == $user['nickname'])){
                         return true;
                 }
         }
         return false;
 }
 function loadUser($user, $userFile){
-        //Loads a user corresponding to his mail or his nickname (or his ID ?)
+        //Loads a user corresponding to his mail or his nickname
         $f = fopen($userFile, "r");
         while(!feof($f)){
                 $cur =fgetcsv($f);
                 if($cur[0] == $user['nickname']){
                         $user['mail'] = $cur[1];
                         $user['password'] = $cur[2];
-                        //$user['id']
                         return $user;
                 }
                 if($cur[1] == $user['mail']){
                         $user['nickname'] = $cur[0];
                         $user['password'] = $cur[2];
-                        //$user['id']
                         return $user;
                 }
         }
