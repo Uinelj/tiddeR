@@ -56,7 +56,7 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`title`, `link`, `content`, `name`, `date`, `note`, `votenumber`) VALUES
-('Akkes.fr', 'http://akkes.fr/', 'Le site parfais de quelqu''un de parfais.', 'Ak:kes', '2015-04-29 23:17:32', 5, 2),
+('Akkes.fr', 'http://akkes.fr/', 'Le site parfait de quelqu''un de parfait.', 'Ak:kes', '2015-04-29 23:17:32', 5, 2),
 ('Uinelj.eu', 'http://uinelj.eu/', 'Mon site perso, il est trop bien!', 'Uinelj', '2015-04-30 18:31:55', 5, 2);
 
 -- --------------------------------------------------------
