@@ -67,6 +67,10 @@ a:hover{
 	width: 24.99999%;
 }
 
+.three{
+	width: 9cm;
+}
+
 /* struct */
 
 .center{
@@ -131,7 +135,7 @@ a:hover{
 
 /* search */
 
-#search input[type=text]{
+input[type=text], input[type=password]{
 	width: 100%;
 	font-size: 1.2rem;
 	font-family: "Merriweather", georgia, serif;
@@ -141,12 +145,12 @@ a:hover{
 	transition: all 1s;
 }
 
-#search input[type=text]:hover{
+input[type=text]:hover, input[type=password]:hover{
 	border-bottom: 1px solid #444444;
 	transition: all .5s;
 }
 
-#search input[type=text]:focus{
+input[type=text]:focus, input[type=password]:focus{
 	color: black;
 	transition: all 1s;
 }
@@ -252,4 +256,33 @@ ul{
 
 #comments p{
 	text-indent: 1cm;
+}
+
+/* login */
+#signup h2, #login h2{
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+label{
+	font-family: 'Playfair Display SC', serif;
+	font-size: 1.3em;
+}
+
+button{
+	float: right;
+	font-family: 'Playfair Display SC', serif;
+}
+
+#login input, #signup input{
+	margin-bottom: 1em;
+}
+
+#signup{
+	padding-right: 1.49cm;
+	border-right: 1pt solid black;
+	margin-right: 1.48cm;
+}
+#signup div{
+	text-align: justify;
 }
