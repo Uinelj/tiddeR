@@ -26,17 +26,7 @@ $db = new bdd();
 
 //search parse
 require_once "db/post.php";
-$request = "SELECT post.* FROM post";
-if(isset($_GET["tag"])){
-	$request .= ", tagsOfPost, tags";
-	$request .= " WHERE tags.name = '" . $_GET["tag"] . "'";
-	$request .= " AND tags.id = tagsOfPost.tag";
-	$request .= " AND tagsOfPost.post = post.id";
-}else if(isset($_GET["user"])){
-	$request .= ", user WHERE user.nick = '" . $_GET["user"] . "' AND post.user = user.id";
-}
-$request .= " ORDER BY " . $_SESSION["order"];
-$result = $db->request($request);
+$result = $db->request("SELECT * FROM post WHERE id = " . $_GET["id"]);
 
 //data preparation
 $posts = array();
