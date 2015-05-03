@@ -19,7 +19,7 @@
 		<ul>
 			<? foreach($tags as $tag): ?>
 				<li>
-					<? if(in_array($tag, $_SESSION["tags"])): ?>
+					<? if($tag == $_GET["tag"]): ?>
 						<a href="<?= rootURL() ?>t/<?= $tag ?>" class="selected"><?= $tag ?></a>
 					<? else: ?>
 						<a href="<?= rootURL() ?>t/<?= $tag ?>"><?= $tag ?></a>
