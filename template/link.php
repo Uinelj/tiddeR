@@ -1,17 +1,18 @@
-<? require("head.php") ?>
+<? require("template/head.php") ?>
 		<div class="center">
-			<? require("sidebar.php") ?>
+			<div id="sidebar" class="block side">
+			</div>
 			<div id="content" class="block main">
 				<div class="post">
-					<? require("post.php") ?>
+					<? require("template/post.php") ?>
 				</div>
 				<div id="comments">
 					<ul>
 						<? foreach($comments as $comment): ?>
-							<? require("comment.php") ?>
+							<? require("template/comment.php") ?>
 						<? endforeach ?>
 					</ul>
 				</div>
 			</div>
 		</div>
-<? require("foot.php") ?>
+<? require("template/foot.php") ?>

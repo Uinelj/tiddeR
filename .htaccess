@@ -1,0 +1,4 @@
+RewriteEngine on
+RewriteRule ^p/([0-9]+)$  link.php?id=$1  [L]
+RewriteRule ^u/([^/.]+)$  index.php?user=$1  [L]
+RewriteRule ^t/([^/.]+)$  index.php?tag=$1  [L]

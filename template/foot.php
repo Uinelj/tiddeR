@@ -7,7 +7,7 @@
 			</div>
 			<div class="block side">
 				<? if(isLogged()): ?>
-					<p><a href="<?= rootUrl() ?>login.php">Connexion <i class="fa fa-signup"></i></a></p>
+					<p><a href="<?= rootUrl() ?>action.php?a=logout">Déconnexion <i class="fa fa-sign-out"></i></a></p>
 				<? endif ?>
 			</div>
 		</div>

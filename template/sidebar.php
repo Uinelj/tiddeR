@@ -1,34 +1,31 @@
-			<div id="sidebar" class="block side">
-				<div class="sidebar-element">
-					<ul>
-						<li>
-							<a href="#">Popular</a>
-						</li>
-						<li>
-							<a href="#" class="selected">Recents</a>
-						</li>
-						<li>
-							<a href="#">Best</a>
-						</li>
-						<li>
-							<a href="#">Controversé</a>
-						</li>
-					</ul>
-				</div>
-				<div class="sidebar-element">
-					<ul>
-						<li>
-							<a href="#" class="selected">HTML</a>
-						</li>
-						<li>
-							<a href="#">CSS</a>
-						</li>
-						<li>
-							<a href="#" class="selected">PHP</a>
-						</li>
-						<li>
-							<a href="#">SCSS</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+<div id="sidebar" class="block side">
+	<div class="sidebar-element">
+		<ul>
+			<li>
+				<a href="<?= rootURL() ?>a=order&amp;o=1">Popular</a>
+			</li>
+			<li>
+				<a href="<?= rootURL() ?>a=order&amp;o=2" class="selected">Recents</a>
+			</li>
+			<li>
+				<a href="<?= rootURL() ?>a=order&amp;o=3">Best</a>
+			</li>
+			<li>
+				<a href="<?= rootURL() ?>a=order&amp;o=4">Controversé</a>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-element">
+		<ul>
+			<? foreach($tags as $tag): ?>
+				<li>
+					<? if(in_array($tag, $_SESSION["tags"])): ?>
+						<a href="<?= rootURL() ?>t/<?= $tag ?>" class="selected"><?= $tag ?></a>
+					<? else: ?>
+						<a href="<?= rootURL() ?>t/<?= $tag ?>"><?= $tag ?></a>
+					<? endif ?>
+				</li>
+			<? endforeach ?>
+		</ul>
+	</div>
+</div>

@@ -1,14 +1,15 @@
-<? require("head.php") ?>
+<? require("template/head.php") ?>
 		<div class="center">
-			<? require("sidebar.php") ?>
+			<? require("template/sidebar.php") ?>
 			<div id="content" class="block main">
 				<ul>
-					<? foreach($posts as $posts): ?>
+					<? if(!isset($posts)): echo "<h1>PROBLEM</h1>"; endif ?>
+					<? foreach($posts as $post): ?>
 						<li class="post">
-							<? require("post.php") ?>
+							<? require("template/post.php") ?>
 						</li>
 					<? endforeach ?>
 				</ul>
 			</div>
 		</div>
-<? require("foot.php") ?>
+<? require("template/foot.php") ?>
