@@ -25,7 +25,7 @@ require_once "db/bdd.php";
 $db = new bdd();
 
 //search parse
-require_once "db/post.php";
+require_once "model/post.php";
 $request = "SELECT post.* FROM post";
 if(isset($_GET["tag"])){
 	$request .= ", tagsOfPost, tags";
