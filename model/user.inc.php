@@ -17,7 +17,7 @@
 
 	function valid($user){
 		$nickRegex = "/[\w\d]\w{4,32}/";
-		if(!preg_match($nickRegex, $user->nick)){
+		if(!preg_match($nickRegex, $user->nick())){
 			echo "ERR: Longeur et/ou caractères de nickname incorrects.";
 			return false;
 		}
@@ -35,16 +35,14 @@
 
 	function load($nick, $file){
 		$f = fopen($file, "r");
-		print_r("On ouvre");
 		while(!feof($f)){
 			$cur = fgetcsv($f);
 			if($cur[0] == $nick){
-				print_r("Trouvé");
 				fclose($f);
 				return new user($cur[0], $cur[1], $cur[2], $cur[3]);
 			}
 		}
-		print_r("pas trouvé");
+		//print_r("pas trouvé");
 		fclose($f);
 		return false;
 	}

@@ -1,12 +1,15 @@
 <?php
 //session
 session_start();
-if(!isset($_SESSION["session"])){
-	$_SESSION["session"] = true;
-	$_SESSION["tags"] = array();
-	$_SESSION["order"] = "date";
-	$_SESSION["search"] = null;
-}
+
+
+// if(!isset($_SESSION["session"])){
+// 	$_SESSION["session"] = true;
+// 	$_SESSION["tags"] = array();
+// 	$_SESSION["order"] = "date";
+// 	$_SESSION["search"] = null;
+// }
+
 
 function rootURL(){
 	return "http://" . $_SERVER['HTTP_HOST'] . "/web/tiddeR/";
