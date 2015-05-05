@@ -1,12 +1,15 @@
 <?php
 //session
 session_start();
-if(!isset($_SESSION["session"])){
-	$_SESSION["session"] = true;
-	$_SESSION["tags"] = array();
-	$_SESSION["order"] = "date";
-	$_SESSION["search"] = null;
-}
+
+
+// if(!isset($_SESSION["session"])){
+// 	$_SESSION["session"] = true;
+// 	$_SESSION["tags"] = array();
+// 	$_SESSION["order"] = "date";
+// 	$_SESSION["search"] = null;
+// }
+
 
 function rootURL(){
 	return "http://" . $_SERVER['HTTP_HOST'] . "/web/tiddeR/";
@@ -25,7 +28,7 @@ require_once "db/bdd.php";
 $db = new bdd();
 
 //search parse
-require_once "db/post.php";
+require_once "model/post.php";
 $request = "SELECT post.* FROM post";
 if(isset($_GET["tag"])){
 	$request .= ", tagsOfPost, tags";

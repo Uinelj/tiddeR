@@ -13,26 +13,30 @@
 
 	~uinelj|~akkes in html|css|php by rating
 */
-function parseString($string){
-	var_dump($string);
-	$exploded = explode(" ", $string);
-	for($i=0; $i<count($exploded); $i++){
-		if($exploded[$i][0]=="~"){
-			$data['usernames'] = explode("|", str_replace("~", "", $exploded[$i]));
+function parse($str){
+	$str = trim($str);
+	if($str[0] == '\\'){
+		$data['search'] = substr($str, 1);
+		return $data;
+	}
+	$exp = explode(" ", $str);
+	for($i=0; $i<count($exp); $i++){
+		if($exp[$i][0]=="~"){
+			$data['usernames'] = explode("|", str_replace("~", "", $exp[$i]));
 		}else
-		if($exploded[$i]=="in"){
-			$data['tags'] = explode("|", $exploded[$i+1]);
+		if($exp[$i]=="in"){
+			$data['tags'] = explode("|", $exp[$i+1]);
 			$i++; //Ignore next word.
 		}else
-		if($exploded[$i] == "by"){
-			$data['order'] = $exploded[$i+1];
+		if($exp[$i] == "by"){
+			$data['order'] = $exp[$i+1];
 			$i++;
 		}else{
-			$data['search'] .= $exploded[$i] . " ";
+			$data['search'] .= $exp[$i] . " ";
 		}
 
 	}
-	var_dump($data);
+	return $data;
 }
-parseString("by rating in html|css");
+parse("\~uinelj|~akkes in html|css|php|js by rating"));
 ?>
