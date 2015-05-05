@@ -34,5 +34,5 @@ function parseString($string){
 	}
 	var_dump($data);
 }
-parseString("by rating in html|css");
+parseString("by date");
 ?>

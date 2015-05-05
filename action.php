@@ -1,7 +1,10 @@
 <?php
 session_start();
 require_once './model/user.inc.php'; 
-$db = './usersDb/users.csv';
+$config = include './bonusFeatures/config.php';
+
+$db = $config['users'];
+
 initDb($db);
 //print_r($_SESSION);
 switch($_GET['a']){
