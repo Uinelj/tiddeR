@@ -9,7 +9,7 @@ class user
 	private $nick;
 	private $mail;
 	private $hash;
-	private $perms; //3 perms : visitor(0), user(1), admin(2), ban(4)
+	private $perms; //4 perms : visitor(0), user(1), admin(2), ban(4)
 
 	public function __construct($nick, $mail, $hash, $perms){
 		$this->nick = $nick;
