@@ -21,5 +21,9 @@ function isLogged(){
 }
 
 function referer(){
-	return $_SERVER['HTTP_REFERER'];
+	if(isset($_SERVER['HTTP_REFERER'])){
+		return $_SERVER['HTTP_REFERER'];
+	}else{
+		return ROOTURL;
+	}
 }

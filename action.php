@@ -32,7 +32,7 @@ switch($_GET['a']){
 			$_SESSION['mail'] = $user->mail();
 			$_SESSION['perms'] = $user->perms();
 			//print_r($_SESSION);
-			header('location: ' . ROOTURL . 'login.php?msg=0');
+			header('location: ' . $_GET['ref']);
 			exit();
 		}
 		header('location: ' . ROOTURL . 'login.php?msg=1');
@@ -40,6 +40,8 @@ switch($_GET['a']){
 		break;
 	case 'logout':
 		$_SESSION = array();
+		header('location: ' . referer());
+		exit();
 	default:
 		break;
 
