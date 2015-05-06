@@ -9,7 +9,11 @@
 							<? require("template/post.php") ?>
 						</li>
 					<? endforeach ?>
+					<? if(count($posts) === 0): ?>
+						<h2>Aucun post</h2>
+					<? endif ?>
 				</ul>
 			</div>
+			<? require("template/userSidebar.php") ?>
 		</div>
 <? require("template/foot.php") ?>
