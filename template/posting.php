@@ -10,7 +10,7 @@
 				<p>Laissez vide utiliser le titre de la page</p>
 				<input type="text" name="title"/>
 				<label for="pass">Résumé</label>
-				<textarea name="textarea" rows="5"></textarea>
+				<textarea name="content" rows="5"></textarea>
 				<button name="button">Poster <i class="fa fa-pencil"></i></button>
 			</form>
 			<? require("template/userSidebar.php") ?>

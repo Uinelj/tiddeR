@@ -13,6 +13,15 @@
 						<? endforeach ?>
 					</ul>
 				</div>
+				<? if(isLogged()): ?>
+					<div id="comment">
+						<form class="block full" action="<?= rootURL() ?>action.php?a=comment" method="post">
+							<h2>Commenter</h2>
+							<textarea name="content" rows="5"></textarea>
+							<button name="button">Connexion <i class="fa fa-sign-in"></i></button>
+						</form>
+					</div>
+				<? endif ?>
 			</div>
 		</div>
 <? require("template/foot.php") ?>
