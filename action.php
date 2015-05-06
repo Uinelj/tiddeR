@@ -17,8 +17,11 @@ switch($_GET['a']){
 			);
 		if(valid($user) && !load($user->nick(), $db)){
 			store($user, $db);
+			header('location: ' . ROOTURL . 'login.php?msg=0');
+			exit();
 		}
 		header('location: ' . ROOTURL . 'login.php?msg=1');
+		exit();
 		break;
 	case 'log':
 		$user = load(htmlspecialchars($_POST['nick']), $db);
@@ -29,8 +32,12 @@ switch($_GET['a']){
 			$_SESSION['nick'] = $user->nick();
 			$_SESSION['mail'] = $user->mail();
 			$_SESSION['perms'] = $user->perms();
-			print_r($_SESSION);
+			//print_r($_SESSION);
+			header('location: ' . ROOTURL . 'login.php?msg=0');
+			exit();
 		}
+		header('location: ' . ROOTURL . 'login.php?msg=1');
+		exit();
 		break;
 	case 'logout':
 		$_SESSION = array();
