@@ -1,7 +1,6 @@
 <?php
-session_start();
+require_once "utils.php";
 require_once './model/user.inc.php'; 
-require_once 'config.php'; 
 
 $db = USERS;
 

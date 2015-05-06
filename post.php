@@ -1,25 +1,5 @@
 <?php
-//session
-session_start();
-
-
-if(!isset($_SESSION['perms'])){
-	echo "yolo";
-	$_SESSION['perms'] = 0;
-}
-
-
-function rootURL(){
-	return "http://" . $_SERVER['HTTP_HOST'] . "/web/tiddeR/";
-}
-
-function search(){
-	return "recherche";
-}
-
-function isLogged(){
-	return $_SESSION['perms'] !== 0;
-}
+require_once "utils.php";
 
 //DB connect
 require_once "db/bdd.php";
