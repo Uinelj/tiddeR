@@ -39,31 +39,27 @@ function parse($str){
 	return $data;
 }
 function forgeSQL($data){
-	$request['select'] = "SELECT post.*";
- 	$request['from'] = " FROM post";	
-	$request['where'] = " WHERE";
-	$request['order'] = " ORDER BY";
-	if(isset($data['nicks'])){
-		$request['from'] .= ", user";
-		$request['where'] .= " user.nick = " . $data['nicks'][0];
-		//TODO: Multi users
+	$select[] = "post.*";
+	$from[] = "post";
+	$order[] = "date";
+	if(isset($data['nicks'][0])){
+		$from[] = "user";
+		$where[] = "user.nick = '" . $data['nicks'][0] . "'";
+		$where[] = "post.user = user.id";
 	}
-	if(isset($data['tags'])){
-		$request['from'] .= ", tagsOfPost, tags";
- 		$request['where'] .= " tags.name = " . $data['tag'][0];
+	if(isset($data['tags'][0])){
+		$from[] = "tagsOfPost";
+		$from[] = "tags";
+		$where[] = "tags.name = '" . $data['tags'][0] . "'"; 
+		$where[] = "tags.id = tagsOfPost.tag AND tagsOfPost.post = post.id";
 	}
 	if(isset($data['order'])){
-		//TODO	
-	}else{
-		$request['order'] .= " date";
-	}
-	if(isset($data['search'])){
 		//TODO
 	}
-	return $request['select'] . $request['from'] . $request['where'] . $request['order'];
+	return "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from) . " WHERE " . implode(" AND ", $where) . " ORDER BY " . implode(", ", $order);
 }
 
-$data = parse("~uinelj in html");
+$data = parse("~uinelj in ipsum");
 print_r($data);
 print_r(forgeSQL($data));
 
