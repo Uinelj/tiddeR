@@ -38,7 +38,7 @@ if(isset($_GET["tag"])){
 }else if(isset($_GET["user"])){
 	$request .= ", user WHERE user.nick = '" . $_GET["user"] . "' AND post.user = user.id";
 }
-$request .= " ORDER BY " . $_SESSION["order"];
+$request .= " ORDER BY date";
 $result = $db->request($request);
 
 //data preparation
@@ -65,6 +65,11 @@ $tags = array();
 $result = $db->request("SELECT * FROM `tags`");
 while($row = $result->fetch_assoc()){
 	array_push($tags, $row["name"]);
+}
+if(isset($_GET["tag"])){
+	$selectedTag = $_GET["tag"];
+}else{
+	$selectedTag = "";
 }
 
 //template call

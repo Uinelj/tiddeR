@@ -25,7 +25,7 @@ require_once "db/bdd.php";
 $db = new bdd();
 
 //search parse
-require_once "db/post.php";
+require_once "model/post.php";
 $result = $db->request("SELECT * FROM post WHERE id = " . $_GET["id"]);
 
 //data preparation
@@ -48,7 +48,7 @@ $post = new post($row["id"], $row["title"], $row["link"], $row["date"], $row["co
 array_push($posts, $post);
 
 //comments
-require_once "db/comment.php";
+require_once "model/comment.php";
 $comments = array();
 $commentsResult = $db->request("SELECT comments.*, user.nick FROM comments, user WHERE post = " . $post->id() . " AND user = user.id ORDER BY date");
 while($commentRow = $commentsResult->fetch_assoc()){
