@@ -13,6 +13,9 @@
 
 	~uinelj|~akkes in html|css|php by rating
 */
+function searchToRequest($str){
+	return forgeSQL(parse($str));
+}
 function parse($str){
 	$str = trim($str);
 	if($str[0] == '\\'){
@@ -41,26 +44,41 @@ function parse($str){
 function forgeSQL($data){
 	$select[] = "post.*";
 	$from[] = "post";
-	$order[] = "date";
-	if(isset($data['nicks'][0])){
+	//$order[] = "date";
+	if(isset($data['nicks'])){
 		$from[] = "user";
-		$where[] = "user.nick = '" . $data['nicks'][0] . "'";
+		$where[] = "user.nick IN ('" . implode("', '", $data['nicks']) . "')";
 		$where[] = "post.user = user.id";
 	}
-	if(isset($data['tags'][0])){
+	if(isset($data['tags'])){
 		$from[] = "tagsOfPost";
 		$from[] = "tags";
-		$where[] = "tags.name = '" . $data['tags'][0] . "'"; 
-		$where[] = "tags.id = tagsOfPost.tag AND tagsOfPost.post = post.id";
+		$where[] = "tagsOfPost.tag = tags.id";
+		$where[] = "(tags.name IN ('" . implode("', '", $data['tags']) . "'))";
+		$where[] = "post.id = tagsOfPost.post";
+
+		$group = "post.id HAVING COUNT( post.id )=" . count($data['tags']);
+
 	}
-	if(isset($data['order'])){
-		//TODO
+	switch ($data['order']){
+		case 'title':
+			$order = 'title ASC';
+			break;
+		case 'date':
+			$order = 'date DESC';
+			break;
+		case 'best':
+			$order = 'note DESC';
+			break;
+		case 'worst':
+			$order = 'note ASC';
+			break;
+		default:
+			$order = 'date DESC';
 	}
-	return "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from) . " WHERE " . implode(" AND ", $where) . " ORDER BY " . implode(", ", $order);
+	return "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from) . " WHERE " . implode(" AND ", $where) ." GROUP BY " . $group . " ORDER BY " . $order;
 }
 
-$data = parse("~uinelj in ipsum");
-print_r($data);
-print_r(forgeSQL($data));
+//print_r(searchToRequest("~uinelj|~akkes in php|mysql by best"));
 
 ?>
