@@ -85,11 +85,11 @@ a:hover{
 
 .center{
 	margin: auto;
-	width: 21.706cm;
+	width: 23cm;
 }
 
 #top{
-	margin: 1.5rem auto;
+	margin: 1.2rem auto;
 }
 
 .main{
@@ -97,7 +97,12 @@ a:hover{
 }
 
 .side{
-	width: 3.353cm;
+	width: 3.5cm;
+	padding: 0 .25cm;
+}
+
+.right{
+	text-align: right;
 }
 
 #footer .main{
@@ -163,6 +168,10 @@ input[type=text]:hover, input[type=password]:hover{
 input[type=text]:focus, input[type=password]:focus{
 	color: black;
 	transition: all 1s;
+}
+
+#top input{
+	margin-bottom: 0;
 }
 
 ul{
@@ -272,9 +281,14 @@ ul{
 }
 
 /* login */
-#signup h2, #login h2{
+form > h2{
 	text-align: center;
 	margin-bottom: 1em;
+}
+
+form > p{
+	float: right;
+	margin: 0;
 }
 
 label{
@@ -287,7 +301,7 @@ button{
 	font-family: 'Playfair Display SC', serif;
 }
 
-#login input, #signup input{
+input{
 	margin-bottom: 1em;
 }
 
@@ -298,4 +312,8 @@ button{
 }
 #signup div{
 	text-align: justify;
+}
+
+textarea{
+	width: 99.1%;
 }

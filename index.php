@@ -3,12 +3,9 @@
 session_start();
 
 
-// if(!isset($_SESSION["session"])){
-// 	$_SESSION["session"] = true;
-// 	$_SESSION["tags"] = array();
-// 	$_SESSION["order"] = "date";
-// 	$_SESSION["search"] = null;
-// }
+if(!isset($_SESSION['perms'])){
+	$_SESSION['perms'] = 0;
+}
 
 
 function rootURL(){
@@ -20,8 +17,9 @@ function search(){
 }
 
 function isLogged(){
-	return false;
+	return $_SESSION['perms'] !== 0;
 }
+
 //DB connect
 require_once "db/bdd.php";
 $db = new bdd();
@@ -39,7 +37,7 @@ if(isset($_GET["tag"])){
 }
 $request .= " ORDER BY date";
 $result = $db->request($request);
-print_r($request);
+
 //data preparation
 $posts = array();
 while ($row = $result->fetch_assoc()) {
