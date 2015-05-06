@@ -22,7 +22,6 @@ function search(){
 function isLogged(){
 	return false;
 }
-
 //DB connect
 require_once "db/bdd.php";
 $db = new bdd();
@@ -40,7 +39,7 @@ if(isset($_GET["tag"])){
 }
 $request .= " ORDER BY date";
 $result = $db->request($request);
-
+print_r($request);
 //data preparation
 $posts = array();
 while ($row = $result->fetch_assoc()) {

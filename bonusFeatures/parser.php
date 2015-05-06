@@ -22,7 +22,7 @@ function parse($str){
 	$exp = explode(" ", $str);
 	for($i=0; $i<count($exp); $i++){
 		if($exp[$i][0]=="~"){
-			$data['usernames'] = explode("|", str_replace("~", "", $exp[$i]));
+			$data['nicks'] = explode("|", str_replace("~", "", $exp[$i]));
 		}else
 		if($exp[$i]=="in"){
 			$data['tags'] = explode("|", $exp[$i+1]);
@@ -38,5 +38,33 @@ function parse($str){
 	}
 	return $data;
 }
-parse("\~uinelj|~akkes in html|css|php|js by rating"));
+function forgeSQL($data){
+	$request['select'] = "SELECT post.*";
+ 	$request['from'] = " FROM post";	
+	$request['where'] = " WHERE";
+	$request['order'] = " ORDER BY";
+	if(isset($data['nicks'])){
+		$request['from'] .= ", user";
+		$request['where'] .= " user.nick = " . $data['nicks'][0];
+		//TODO: Multi users
+	}
+	if(isset($data['tags'])){
+		$request['from'] .= ", tagsOfPost, tags";
+ 		$request['where'] .= " tags.name = " . $data['tag'][0];
+	}
+	if(isset($data['order'])){
+		//TODO	
+	}else{
+		$request['order'] .= " date";
+	}
+	if(isset($data['search'])){
+		//TODO
+	}
+	return $request['select'] . $request['from'] . $request['where'] . $request['order'];
+}
+
+$data = parse("~uinelj in html");
+print_r($data);
+print_r(forgeSQL($data));
+
 ?>
