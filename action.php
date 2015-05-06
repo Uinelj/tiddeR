@@ -1,9 +1,9 @@
 <?php
 session_start();
 require_once './model/user.inc.php'; 
-$config = include './bonusFeatures/config.php';
+require_once 'config.php'; 
 
-$db = $config['users'];
+$db = USERS;
 
 initDb($db);
 //print_r($_SESSION);
@@ -18,6 +18,7 @@ switch($_GET['a']){
 		if(valid($user) && !load($user->nick(), $db)){
 			store($user, $db);
 		}
+		header('location: ' . ROOTURL . 'login.php?msg=1');
 		break;
 	case 'log':
 		$user = load(htmlspecialchars($_POST['nick']), $db);

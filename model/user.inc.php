@@ -1,6 +1,5 @@
 <?php
 	require_once 'user.php';
-	
 
 	function initDb($path){ //TODO: WARN si PHP peut pas écrire dans le dossier.
 		if(file_exists($path)){

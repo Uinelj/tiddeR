@@ -8,6 +8,8 @@
 // erreur() : obtenir le message d'erreur
 //////////////////////////////////////////////////////////////////////
 
+require_once 'config.php'; 
+
 class bdd
 {
 	private $erreur = false;
@@ -16,7 +18,7 @@ class bdd
 	public function __construct()
 	{
 		//Connection à la BDD
-		$this->dbco = new mysqli("localhost", "root", "root", "tiddeR");
+		$this->dbco = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 		if(!is_object($this->dbco)){echo "<font color='red' size='5'>DB N EST PAS UN OBJET</font>";}
 		//gestion des erreurs de connection
 		if ($this->dbco->errno)
