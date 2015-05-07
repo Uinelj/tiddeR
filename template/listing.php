@@ -1,19 +1,19 @@
-<? require("template/head.php") ?>
+<?php require("template/head.php") ?>
 		<div class="center">
-			<? require("template/sidebar.php") ?>
+			<?php require("template/sidebar.php") ?>
 			<div id="content" class="block main">
 				<ul>
-					<? if(!isset($posts)): echo "<h1>PROBLEM</h1>"; endif ?>
-					<? foreach($posts as $post): ?>
+					<?php if(!isset($posts)): echo "<h1>PROBLEM</h1>"; endif ?>
+					<?php foreach($posts as $post): ?>
 						<li class="post">
-							<? require("template/post.php") ?>
+							<?php require("template/post.php") ?>
 						</li>
-					<? endforeach ?>
-					<? if(count($posts) === 0): ?>
+					<?php endforeach ?>
+					<?php if(count($posts) === 0): ?>
 						<h2>Aucun post</h2>
-					<? endif ?>
+					<?php endif ?>
 				</ul>
 			</div>
-			<? require("template/userSidebar.php") ?>
+			<?php require("template/userSidebar.php") ?>
 		</div>
-<? require("template/foot.php") ?>
+<?php require("template/foot.php") ?>

@@ -1,4 +1,4 @@
-<? require("head.php") ?>
+<?php require("head.php") ?>
 		<div class="center">
 			<form id="signup" class="block three" action="<?= rootURL() ?>action.php?a=sign&amp;ref=<?= referer() ?>" method="post">
 				<h2>Inscription</h2>
@@ -19,4 +19,4 @@
 				<button name="button">Connexion <i class="fa fa-sign-in"></i></button>
 			</form>
 		</div>
-<? require("foot.php") ?>
+<?php require("foot.php") ?>

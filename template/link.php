@@ -1,19 +1,19 @@
-<? require("template/head.php") ?>
+<?php require("template/head.php") ?>
 		<div class="center">
 			<div id="sidebar" class="block side">
 			</div>
 			<div id="content" class="block main">
 				<div class="post">
-					<? require("template/post.php") ?>
+					<?php require("template/post.php") ?>
 				</div>
 				<div id="comments">
 					<ul>
-						<? foreach($comments as $comment): ?>
-							<? require("template/comment.php") ?>
-						<? endforeach ?>
+						<?php foreach($comments as $comment): ?>
+							<?php require("template/comment.php") ?>
+						<?php endforeach ?>
 					</ul>
 				</div>
-				<? if(isLogged()): ?>
+				<?php if(isLogged()): ?>
 					<div id="comment">
 						<form class="block full" action="<?= rootURL() ?>action.php?a=comment" method="post">
 							<h2>Commenter</h2>
@@ -21,7 +21,7 @@
 							<button name="button">Connexion <i class="fa fa-sign-in"></i></button>
 						</form>
 					</div>
-				<? endif ?>
+				<?php endif ?>
 			</div>
 		</div>
-<? require("template/foot.php") ?>
+<?php require("template/foot.php") ?>

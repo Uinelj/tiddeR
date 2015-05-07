@@ -17,15 +17,15 @@
 	</div>
 	<div class="sidebar-element">
 		<ul>
-			<? foreach($tags as $tag): ?>
+			<?php foreach($tags as $tag): ?>
 				<li>
-					<? if($tag == $selectedTag): ?>
+					<?php if($tag == $selectedTag): ?>
 						<a href="<?= rootURL() ?>t/<?= $tag ?>" class="selected"><?= $tag ?></a>
-					<? else: ?>
+					<?php else: ?>
 						<a href="<?= rootURL() ?>t/<?= $tag ?>"><?= $tag ?></a>
-					<? endif ?>
+					<?php endif ?>
 				</li>
-			<? endforeach ?>
+			<?php endforeach ?>
 		</ul>
 	</div>
 </div>

@@ -19,10 +19,10 @@
 				</form>
 			</div>
 			<div id="user" class="block side disapear">
-				<? if(isLogged()): ?>
+				<?php if(isLogged()): ?>
 					<a href="<?= rootUrl() ?>post.php">Poster <i class="fa fa-pencil"></i></a>
-				<? else: ?>
+				<?php else: ?>
 					<a href="<?= rootUrl() ?>login.php">Connexion <i class="fa fa-sign-in"></i></a>
-				<? endif ?>
+				<?php endif ?>
 			</div>
 		</div>

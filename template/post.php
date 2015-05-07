@@ -3,20 +3,20 @@
 <p><?= $post->content() ?></p>
 <div class="disapear">
 	<ul class="block third tags">
-		<? foreach($post->tags() as $tag): ?>
+		<?php foreach($post->tags() as $tag): ?>
 			<li><a href="<?= rootURL() ?>t/<?= $tag ?>"><?= $tag ?></a></li>
-		<? endforeach ?>
+		<?php endforeach ?>
 	</ul>
 	<p class="block third author"><a href="<?= rootURL() ?>u/<?= $post->author() ?>"><?= $post->author() ?></a></p>
 	<div class="block third rating">
 		<ul>
-			<? for($i = 1; $i <= 5; $i++): ?>
-				<? if($post->rating()>=$i): ?>
+			<?php for($i = 1; $i <= 5; $i++): ?>
+				<?php if($post->rating()>=$i): ?>
 					<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>" class="fa fa-star"></a></li>
-				<? else: ?>
+				<?php else: ?>
 					<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>" class="fa fa-star-o"></a></li>
-				<? endif ?>
-			<? endfor ?>
+				<?php endif ?>
+			<?php endfor ?>
 		</ul>
 	</div>
 </div>
