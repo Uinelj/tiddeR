@@ -14,7 +14,7 @@
 			<div id="search" class="block main">
 				<form action="index.php">
 					<fieldset>
-						<input type="text" name="search" value="<?= search() ?>"/>
+						<input type="text" name="search" value="<?= search() ?>" onclick="this.value='';"/>
 					</fieldset>
 				</form>
 			</div>
