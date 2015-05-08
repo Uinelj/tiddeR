@@ -2,7 +2,6 @@
 require_once "utils.php";
 
 //DB connect
-require_once "db/bdd.php";
 $db = new bdd();
 
 //search parse

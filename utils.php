@@ -1,7 +1,8 @@
 <?php
 //session
 session_start();
-require_once 'config.php'; 
+require_once 'config.php';
+require_once "db/bdd.php";
 
 if(!isset($_SESSION['perms'])){
 	$_SESSION['perms'] = 0;
