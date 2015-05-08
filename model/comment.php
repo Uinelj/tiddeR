@@ -9,13 +9,14 @@ class comment
 	private $id;
 	private $author;
 	private $date;
-	private $content;
+	private $postid;
 	
-	public function __construct($id, $author, $date, $content){
+	public function __construct($id, $author, $date, $content, $postid){
 		$this->id = $id;
 		$this->author = $author;
 		$this->date = $date;
 		$this->content = $content;
+		$this->postid = $postid;
 	}
 	
 	public function id(){
@@ -32,5 +33,9 @@ class comment
 	
 	public function content(){
 		return $this->content;
+	}
+	
+	public function postid(){
+		return $this->postid;
 	}
 }
