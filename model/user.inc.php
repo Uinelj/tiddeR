@@ -14,7 +14,7 @@
 	}
 
 	function valid($user){
-		$nickRegex = "/[\w\d]\w{4,32}/";
+		$nickRegex = "/[\w\d]\w{2,32}/";
 		if(!preg_match($nickRegex, $user->nick())){
 			echo "ERR: Longeur et/ou caractères de nickname incorrects.";
 			return false;

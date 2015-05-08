@@ -4,7 +4,7 @@ require_once './model/user.inc.php';
 
 $csv = USERS;
 
-initDb($db);
+initDb($csv);
 //print_r($_SESSION);
 switch($_GET['a']){
 	case 'sign':
@@ -16,6 +16,8 @@ switch($_GET['a']){
 			);
 		if(valid($user) && !load($user->nick(), $csv)){
 			store($user, $csv);
+			//db
+			$db->request("INSERT INTO `user` (`nick`, `mail`) VALUES ('" . $user->nick() . "', '" . $user->mail() . "')");
 			header('location: ' . ROOTURL . 'login.php?msg=0');
 			exit();
 		}
