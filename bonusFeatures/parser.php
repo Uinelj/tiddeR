@@ -50,30 +50,35 @@ function forgeSQL($data){
 		$where[] = "user.nick IN ('" . implode("', '", $data['nicks']) . "')";
 		$where[] = "post.user = user.id";
 	}
+	$_SESSION["tags"] = $data['tags'];
 	if(isset($data['tags'])){
 		$from[] = "tagsOfPost";
 		$from[] = "tags";
 		$where[] = "tagsOfPost.tag = tags.id";
 		$where[] = "(tags.name IN ('" . implode("', '", $data['tags']) . "'))";
 		$where[] = "post.id = tagsOfPost.post";
-
+		
 		$group = "post.id HAVING COUNT( post.id )=" . count($data['tags']);
-
 	}
 	switch ($data['order']){
 		case 'title':
+			$_SESSION['order'] = 0;
 			$order = 'title ASC';
 			break;
 		case 'date':
+			$_SESSION['order'] = 1;
 			$order = 'date DESC';
 			break;
 		case 'best':
+			$_SESSION['order'] = 2;
 			$order = 'note DESC';
 			break;
 		case 'worst':
+			$_SESSION['order'] = 3;
 			$order = 'note ASC';
 			break;
 		default:
+			$_SESSION['order'] = 1;
 			$order = 'date DESC';
 	}
 	$sql = "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from); 

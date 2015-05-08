@@ -9,20 +9,22 @@ $db = new bdd();
 
 if(!isset($_SESSION['perms'])){
 	$_SESSION['perms'] = 0;
-	$_SESSION['order'] = 1;
 }
 
-$orders = array("Populaire",
-		"Récent",
-		"Mieux noté",
-		"Controverse");
+$orders = array("title",
+		"date",
+		"best",
+		"worst");
 
 function rootURL(){
 	return ROOTURL;
 }
 
 function search(){
-	return "recherche";
+	if (isset($_GET["search"])) {
+		return $_GET["search"];
+	}
+	return "* by date";
 }
 
 function isLogged(){
