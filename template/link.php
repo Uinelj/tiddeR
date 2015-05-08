@@ -1,7 +1,6 @@
 <?php require("template/head.php") ?>
 		<div class="center">
-			<div id="sidebar" class="block side">
-			</div>
+			<?php require("template/sidebar.php") ?>
 			<div id="content" class="block main">
 				<div class="post">
 					<?php require("template/post.php") ?>

@@ -9,8 +9,13 @@ $db = new bdd();
 
 if(!isset($_SESSION['perms'])){
 	$_SESSION['perms'] = 0;
+	$_SESSION['order'] = 1;
 }
 
+$orders = array("Populaire",
+		"Récent",
+		"Mieux noté",
+		"Controverse");
 
 function rootURL(){
 	return ROOTURL;

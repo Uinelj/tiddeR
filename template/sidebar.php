@@ -1,18 +1,15 @@
 <div id="sidebar" class="block side">
 	<div class="sidebar-element">
 		<ul>
+			<?php for($i = 0; $i<5; $i++): ?>
 			<li>
-				<a href="<?= rootURL() ?>a=order&amp;o=1">Popular</a>
+				<?php if($_SESSION["order"] == $i): ?>
+					<a href="<?= rootURL() ?>action.php?a=order&amp;o=<?= $i ?>&amp;ref=<?= referer() ?>" class="selected"><?= $orders[$i] ?></a>
+				<?php else: ?>
+					<a href="<?= rootURL() ?>action.php?a=order&amp;o=<?= $i ?>&amp;ref=<?= referer() ?>"><?= $orders[$i] ?></a>
+				<?php endif ?>
 			</li>
-			<li>
-				<a href="<?= rootURL() ?>a=order&amp;o=2" class="selected">Recents</a>
-			</li>
-			<li>
-				<a href="<?= rootURL() ?>a=order&amp;o=3">Best</a>
-			</li>
-			<li>
-				<a href="<?= rootURL() ?>a=order&amp;o=4">Controversé</a>
-			</li>
+			<?php endfor ?>
 		</ul>
 	</div>
 	<div class="sidebar-element">

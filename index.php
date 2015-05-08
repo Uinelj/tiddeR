@@ -12,7 +12,20 @@ if(isset($_GET["tag"])){
 }else if(isset($_GET["user"])){
 	$request .= ", user WHERE user.nick = '" . $_GET["user"] . "' AND post.user = user.id";
 }
-$request .= " ORDER BY date";
+switch($_SESSION["order"]){
+	case 0:
+		$request .= " ORDER BY note";
+		break;
+	case 1:
+		$request .= " ORDER BY date DESC";
+		break;
+	case 2:
+		$request .= " ORDER BY note DESC";
+		break;
+	case 3:
+		$request .= " ORDER BY note";
+		break;
+}
 $result = $db->request($request);
 
 //data preparation

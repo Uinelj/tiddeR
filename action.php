@@ -62,6 +62,13 @@ switch($_GET['a']){
 			exit();
 		}
 		break;
+	case 'order':
+	if (isset($_GET["o"]) && 0 <= $_GET["o"] && $_GET["o"] <= 3) {
+		$_SESSION["order"] = $_GET["o"];
+		header('location: ' . $_GET["ref"]);
+		exit();
+	}
+		break;
 	default:
 		break;
 
