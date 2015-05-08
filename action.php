@@ -2,7 +2,7 @@
 require_once "utils.php";
 require_once './model/user.inc.php'; 
 
-$db = USERS;
+$csv = USERS;
 
 initDb($db);
 //print_r($_SESSION);
@@ -14,8 +14,8 @@ switch($_GET['a']){
 			htmlspecialchars(password_hash($_POST['pass'], PASSWORD_BCRYPT)), 
 			'1'
 			);
-		if(valid($user) && !load($user->nick(), $db)){
-			store($user, $db);
+		if(valid($user) && !load($user->nick(), $csv)){
+			store($user, $csv);
 			header('location: ' . ROOTURL . 'login.php?msg=0');
 			exit();
 		}
@@ -23,7 +23,7 @@ switch($_GET['a']){
 		exit();
 		break;
 	case 'log':
-		$user = load(htmlspecialchars($_POST['nick']), $db);
+		$user = load(htmlspecialchars($_POST['nick']), $csv);
 		//echo var_dump($user);
 		if(password_verify($_POST['pass'], $user->hash())){
 			//set($user->hash);
@@ -42,6 +42,24 @@ switch($_GET['a']){
 		$_SESSION = array();
 		header('location: ' . referer());
 		exit();
+		break;
+	case 'comment':
+		if(isLogged()){
+			//sanitize input
+			$msg = addslashes($_POST["msg"]);
+			$post = $_GET["id"];
+			$result = $db->request("SELECT id FROM user WHERE nick = '" . $_SESSION['nick'] . "'");
+			$row = $result->fetch_assoc();
+			$user = $row["id"];
+			
+			//request
+			$db->request("INSERT INTO `comments` (`post`, `user`, `text`, `date`) VALUES ('" . $post . "', '" . $user . "', '" . $msg . "', NOW())");
+			
+			//redirect
+			header('location: ' . ROOTURL . "p/" . $post);
+			exit();
+		}
+		break;
 	default:
 		break;
 

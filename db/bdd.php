@@ -25,9 +25,8 @@ class bdd
 		{
 			$this->erreur= "Erreur de connection a la bdd : " . $this->dbco->connect_error;
 		}
-		if(!is_object($this->dbco)){echo "<font color='red' size='5'>dbco n'est pas un objet dans __construct</font>";}
 		if (!$this->dbco->set_charset("utf8")) {
-			printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", $mysqli->error);
+			printf("Erreur lors du chargement du jeu de caractères utf8 : %s\n", $this->dbco->error);
 		}
 	}
 	
