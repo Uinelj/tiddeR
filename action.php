@@ -63,11 +63,24 @@ switch($_GET['a']){
 		}
 		break;
 	case 'order':
-	if (isset($_GET["o"]) && 0 <= $_GET["o"] && $_GET["o"] <= 3) {
-		$_SESSION["order"] = $_GET["o"];
-		header('location: ' . $_GET["ref"]);
-		exit();
-	}
+		if (isset($_GET["o"]) && 0 <= $_GET["o"] && $_GET["o"] <= 3) {
+			$_SESSION["order"] = $_GET["o"];
+			header('location: ' . $_GET["ref"]);
+			exit();
+		}
+		break;
+	case 'vote':
+		if (isset($_GET["id"]) && isset($_GET["v"]) && 1 <= $_GET["v"] && $_GET["v"] <= 5 && is_int($_GET["id"])) {
+			$result = $db->request("SELECT id FROM user WHERE nick = '" . $_SESSION['nick'] . "'");
+			$row = $result->fetch_assoc();
+			$user = $row["id"];
+			
+			$db->request("INSERT INTO `vote` (`user`, `post`, `value`) VALUES ('" . $user . "', '" . $_GET["id"] . "', '" . $_GET["v"] . "')");
+			//$db->request("UPDATE `post` SET `note` = AVG(vote.value WHERE vote.post = '" . $_GET["id"] . "'), `vote_number` = `vote_number`+1 WHERE `id` = '1'");
+			
+			header('location: ' . $_GET["ref"]);
+			exit();
+		}
 		break;
 	default:
 		break;
