@@ -76,9 +76,17 @@ function forgeSQL($data){
 		default:
 			$order = 'date DESC';
 	}
-	return "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from) . " WHERE " . implode(" AND ", $where) ." GROUP BY " . $group . " ORDER BY " . $order;
+	$sql = "SELECT " . implode(", ", $select) . " FROM " . implode(", ", $from); 
+	if($where != NULL){
+		$sql .= " WHERE " . implode(" AND ", $where);
+	}
+	if($group != NULL){
+		$sql .= " GROUP BY " . $group;
+	}
+	if($order != NULL){
+		$sql .= " ORDER BY " . $order;
+	}
+	return $sql;
 }
-
-//print_r(searchToRequest("~uinelj|~akkes in php|mysql by best"));
 
 ?>

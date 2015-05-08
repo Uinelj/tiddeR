@@ -3,31 +3,14 @@ require_once "utils.php";
 
 //search parse
 require_once "model/post.php";
-$request = "SELECT post.* FROM post";
-if(isset($_GET["tag"])){
-	$request .= ", tagsOfPost, tags";
-	$request .= " WHERE tags.name = '" . $_GET["tag"] . "'";
-	$request .= " AND tags.id = tagsOfPost.tag";
-	$request .= " AND tagsOfPost.post = post.id";
-}else if(isset($_GET["user"])){
-	$request .= ", user WHERE user.nick = '" . $_GET["user"] . "' AND post.user = user.id";
+require_once "bonusFeatures/parser.php";
+if(isset($_GET['search']) && ($_GET['search'] != "")){
+	$search = htmlspecialchars($_GET['search']);
+}else{
+	$search = "* by date";
 }
-switch($_SESSION["order"]){
-	case 0:
-		$request .= " ORDER BY note";
-		break;
-	case 1:
-		$request .= " ORDER BY date DESC";
-		break;
-	case 2:
-		$request .= " ORDER BY note DESC";
-		break;
-	case 3:
-		$request .= " ORDER BY note";
-		break;
-}
-$result = $db->request($request);
 
+$result = $db->request(searchToRequest($search));
 //data preparation
 $posts = array();
 while ($row = $result->fetch_assoc()) {
