@@ -29,7 +29,7 @@ require_once "model/comment.php";
 $comments = array();
 $commentsResult = $db->request("SELECT comments.*, user.nick FROM comments, user WHERE post = " . $post->id() . " AND user = user.id ORDER BY date");
 while($commentRow = $commentsResult->fetch_assoc()){
-	$comment = new comment($commentRow["id"], $commentRow["nick"], $commentRow["date"], $commentRow["text"]);
+	$comment = new comment($commentRow["id"], $commentRow["nick"], $commentRow["date"], $commentRow["text"], $commentRow["post"]);
 	array_push($comments, $comment);
 }
 
