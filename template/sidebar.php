@@ -1,7 +1,7 @@
 <div id="sidebar" class="block side">
 	<div class="sidebar-element">
 		<ul>
-			<?php for($i = 0; $i<5; $i++): ?>
+			<?php for($i = 0; $i<4; $i++): ?>
 			<li>
 				<?php if($_SESSION["order"] == $i): ?>
 					<a href="<?= rootURL() ?>action.php?a=order&amp;o=<?= $i ?>&amp;ref=<?= referer() ?>" class="selected"><?= $orders[$i] ?></a>
