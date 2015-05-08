@@ -1,9 +1,6 @@
 <?php
 require_once "utils.php";
 
-//DB connect
-$db = new bdd();
-
 //search parse
 require_once "model/post.php";
 $request = "SELECT post.* FROM post";

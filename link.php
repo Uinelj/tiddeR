@@ -1,10 +1,6 @@
 <?php
 require_once "utils.php";
 
-//DB connect
-require_once "db/bdd.php";
-$db = new bdd();
-
 //search parse
 require_once "model/post.php";
 $result = $db->request("SELECT * FROM post WHERE id = " . $_GET["id"]);
