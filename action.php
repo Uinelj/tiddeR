@@ -24,15 +24,15 @@ switch($_GET['a']){
 		break;
 	case 'log':
 		$user = load(htmlspecialchars($_POST['nick']), $db);
-		//echo var_dump($user);
-		if(password_verify($_POST['pass'], $user->hash())){
+		
+		if(($user != false) && (password_verify($_POST['pass'], $user->hash()))){
 			//set($user->hash);
 			//$_SESSION['user'] = $user; Cool mais il faudrait des fonctions magiques.
 			$_SESSION['nick'] = $user->nick();
 			$_SESSION['mail'] = $user->mail();
 			$_SESSION['perms'] = $user->perms();
 			//print_r($_SESSION);
-			header('location: ' . $_GET['ref']);
+			header('location: ' . ROOTURL);
 			exit();
 		}
 		header('location: ' . ROOTURL . 'login.php?msg=1');
