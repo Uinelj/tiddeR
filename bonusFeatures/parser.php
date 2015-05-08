@@ -16,6 +16,45 @@
 function searchToRequest($str){
 	return forgeSQL(parse($str));
 }
+function editOrder($str, $order='date'){
+	$parsed = parse($str);
+	$parsed['order'] = $order;
+	return forgeString($parsed);
+}
+function addTag($str, $tag){
+	$parsed = parse($str);
+	if(!array_key_exists('tags', $parsed)){
+		$parsed['tags'] = array($tag);
+	}else{
+		array_push($parsed['tags'], $tag);
+	}
+	return forgeString($parsed);
+}
+function rmTag($str, $tag){
+	$parsed = parse($str);
+	//print_r($parsed['tags']);
+	$key = array_search($tag, $parsed['tags']);
+	if( $key !== false){
+		array_splice($parsed['tags'], $key, 1);
+	}
+	return forgeString($parsed);
+}
+function editStr($str, $edits){
+	$parsed = parse($str);
+	if(isset($edits['nicks'])){
+		$parsed['nicks'] = $edits['nicks'];
+	}
+	if(isset($edits['tags'])){
+		$parsed['tags'] = $edits['tags'];
+	}
+	if(isset($edits['order'])){
+		$parsed['order'] = $edits['order'];
+	}
+	if(isset($edits['search'])){
+		$parsed['search'] = $edits['search'];
+	}
+	return forgeString($parsed);
+}
 function parse($str){
 	$str = trim($str);
 	if($str[0] == '\\'){
@@ -94,4 +133,27 @@ function forgeSQL($data){
 	return $sql;
 }
 
+function forgeString($data){
+	$str ="";
+	if(isset($data['nicks']) && $data['nicks'] != NULL){
+		foreach ($data['nicks'] as &$nick) {
+			$nick = "~" . $nick;
+		}
+		$str .= implode("|", $data['nicks']);
+		$str .= ' ';
+	}
+	if($data['tags'] != NULL){
+		$str .= 'in ';
+		$str .= implode("|", $data['tags']);
+		$str .= ' ';
+	}
+	if($data['order'] != NULL){
+		$str .= 'by ';
+		$str .= $data['order'];
+	}
+	if($data['search'] != NULL){
+		$str .= ' ' . $data['search'];
+	}
+	return $str;
+}
 ?>

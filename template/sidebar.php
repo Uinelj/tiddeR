@@ -4,9 +4,9 @@
 			<?php for($i = 0; $i<4; $i++): ?>
 			<li>
 				<?php if($_SESSION["order"] == $i): ?>
-					<a href="<?= rootURL() ?><?= search() ?>+by+<?= $orders[$i] ?>" class="selected"><?= $orders[$i] ?></a>
+					<a href="<?= rootURL() ?>index.php?search=<?=editOrder(search()) ?>" class="selected"><?= $orders[$i] ?></a>
 				<?php else: ?>
-					<a href="<?= rootURL() ?><?= search() ?>+by+<?= $orders[$i] ?>"><?= $orders[$i] ?></a>
+					<a href="<?= rootURL() ?>index.php?search=<?=editOrder(search(), $orders[$i]) ?>" ><?= $orders[$i] ?></a>
 				<?php endif ?>
 			</li>
 			<?php endfor ?>
@@ -17,9 +17,9 @@
 			<?php foreach($tags as $tag): ?>
 				<li>
 					<?php if(in_array($tag, $_SESSION["tags"])): ?>
-						<a href="<?= rootURL() ?><?= search() ?>+in+<?= $tag ?>" class="selected"><?= $tag ?></a>
+						<a href="<?= rootURL() ?>index.php?search=<?= rmTag(search(), $tag) ?>" class="selected"><?= $tag ?></a>
 					<?php else: ?>
-						<a href="<?= rootURL() ?><?= search() ?>+in+<?= $tag ?>"><?= $tag ?></a>
+						<a href="<?= rootURL() ?>index.php?search=<?= addTag(search(), $tag) ?>"><?= $tag ?></a>
 					<?php endif ?>
 				</li>
 			<?php endforeach ?>

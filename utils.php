@@ -24,7 +24,7 @@ function search(){
 	if (isset($_GET["search"])) {
 		return $_GET["search"];
 	}
-	return "* by date";
+	return "by date";
 }
 
 function isLogged(){
