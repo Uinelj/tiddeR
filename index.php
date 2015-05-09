@@ -3,7 +3,6 @@ require_once "utils.php";
 
 //search parse
 require_once "model/post.php";
-require_once "bonusFeatures/parser.php";
 if(isset($_GET['search']) && ($_GET['search'] != "")){
 	$search = htmlspecialchars($_GET['search']);
 }else{

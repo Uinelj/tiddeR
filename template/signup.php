@@ -1,7 +1,6 @@
 <?php require("head.php") ?>
 		<div class="center">
 			<?php if(isset($message)): ?>
-				<h2>Erreur :-(</h2>
 				<p><?= $message ?></p>
 			<?php endif ?>
 			<form id="signup" class="block three" action="<?= rootURL() ?>action.php?a=sign&amp;ref=<?= referer() ?>" method="post">
