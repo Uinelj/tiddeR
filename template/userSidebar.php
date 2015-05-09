@@ -11,6 +11,11 @@
 				<li>
 					<a href="<?= rootURL() ?>c/<?= $_SESSION["nick"] ?>">Commentaires</a>
 				</li>
+				<?php if($_SESSION['perms']==2): ?>
+					<li>
+						<a href="<?= rootURL() ?>admin.php">Commentaires</a>
+					</li>
+				<?php endif ?>
 			</ul>
 		<?php endif ?>
 	</div>
