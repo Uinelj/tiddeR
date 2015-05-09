@@ -3,12 +3,14 @@
 session_start();
 require_once 'config.php';
 require_once "db/bdd.php";
+require_once "bonusFeatures/parser.php";
 
 //DB connect
 $db = new bdd();
 
 if(!isset($_SESSION['perms'])){
 	$_SESSION['perms'] = 0;
+	$_SESSION['tags'] = array();
 }
 
 $orders = array("title",
