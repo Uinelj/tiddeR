@@ -8,7 +8,7 @@
 		<?php endforeach ?>
 	</ul>
 	<p class="block third author">
-		<?php if($_SESSION['perms'] === 2 || $_SESSION['id'] === $user->id()): ?>
+		<?php if($_SESSION['perms'] === 2 || $_SESSION['id'] === $post->authorID()): ?>
 				<a href="<?= rootURL() ?>action.php?a=delPost&amp;id=<?= $post->id() ?>"><i class="fa fa-trash"></i></a>
 				<a href="<?= rootURL() ?>post.php?edit=true&amp;id=<?= $post->id() ?>"><i class="fa fa-pencil"></i></a>
 		<?php else: ?>
