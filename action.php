@@ -178,7 +178,7 @@ switch($_GET['a']){
 			$_POST['title'] = getTitle($_POST['link']);
 		}
 
-		$POST_['content'] = htmlspecialchars($_POST['content']);
+		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['link'] = addslashes($_POST['link']);
 		$_POST['title'] = addslashes($_POST['title']);
 		$_POST['content'] = addslashes($_POST['content']);
@@ -201,6 +201,8 @@ switch($_GET['a']){
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
+	case 'edit':
+
 	default:
 		break;
 
