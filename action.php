@@ -94,7 +94,7 @@ switch($_GET['a']){
 			header('location: ' . ROOTURL . 'login.php?msg=0');
 			exit();
 		}
-		header('location: ' . ROOTURL . 'login.php?msg=1');
+		header('location: ' . ROOTURL . 'login.php?msg=3');
 		exit();
 		break;
 	case 'log':
