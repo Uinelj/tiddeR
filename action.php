@@ -155,11 +155,12 @@ switch($_GET['a']){
 		break;
 	case 'post':
 
-		/* TEMP : LE TEMPS DE POUVOIR GERER LES SELFPOSTS*/
+		$selfpost = false;
+		
 		if($_POST['link'] == ""){
-			header('location: ' . ROOTURL . 'post.php');
-		}
-		/*FIN TEMP*/
+			$selfpost = true;
+			//header('location: ' . ROOTURL . 'post.php');
+ 		}
 
 		if(($_POST['link'] != "") && (!parse_url($_POST['link']))){
 			//Lien n'est pas une URL valide.
@@ -186,6 +187,19 @@ switch($_GET['a']){
 		$db->request($request);
 		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
 		$row = $db->request($request)->fetch_assoc();
+		if($selfpost){
+			$_POST['link'] = ROOTURL . "p/" . $row['id'];
+			$db->request("UPDATE `tiddeR`.`post` SET `link` = '" . $_POST['link'] . "' WHERE `post`.`id` = ". $row['id']);
+		}
+
+		//tags
+		foreach($_POST['tags'] as $tag){
+			print_r($tag);
+			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
+			echo "INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")";
+
+		}
+		exit();
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
