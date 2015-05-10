@@ -15,7 +15,7 @@ $posts = array();
 while ($row = $result->fetch_assoc()) {
 	//tags
 	$tags = array();
-	$tagsResults = $db->request("SELECT * FROM tagsOfPost, `tags` WHERE post = " . $row["id"] . " AND tags.id = tagsOfPost.tag");
+	$tagsResults = $db->request("SELECT * FROM tagsOfPost, `tags` WHERE post = " . $row["id"] . " AND tags.id = tagsOfPost.tag ORDER BY tags.name");
 	while($tagRow = $tagsResults->fetch_assoc()){
 		array_push($tags, $tagRow["name"]);
 	}
@@ -34,7 +34,7 @@ $pages = ceil(66/10);
 
 //list tags
 $tags = array();
-$result = $db->request("SELECT * FROM `tags`");
+$result = $db->request("SELECT * FROM `tags` ORDER BY tags.name");
 while($row = $result->fetch_assoc()){
 	array_push($tags, $row["name"]);
 }
