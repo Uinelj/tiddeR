@@ -209,13 +209,15 @@ switch($_GET['a']){
 			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
 			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $_POST['id'] . ", " . $resultAssoc['id'] . ")");
 		}
-		header('location :' . $_SERVER['HTTP_REFERER']);
+		header('location: ' . ROOTURL . 'p/' . $_POST['id']);
 		exit();
 		break;
 	case 'delPost': //Suppression du post !
 		$_GET['id'] = htmlspecialchars($_GET['id']);
-		$db->request("DELETE FROM `tiddeR`.`post` WHERE `post`.`id` = " . $_GET['id']);
-		header("location : " . referer());
+		$db->request("DELETE FROM comments WHERE post = " . $_GET['id']);
+		$db->request("DELETE FROM tagsOfPost WHERE post = " . $_GET['id']);
+		$db->request("DELETE FROM post WHERE id = " . $_GET['id']);
+		header('location: ' . referer());
 		exit();
 		break;
 	default:
