@@ -93,15 +93,23 @@ switch($_GET['a']){
 		}
 		break;
 	case 'vote':
-		if (isset($_GET["id"]) && isset($_GET["v"]) && 1 <= $_GET["v"] && $_GET["v"] <= 5 && is_int($_GET["id"])) {
-			$result = $db->request("SELECT id FROM user WHERE nick = '" . $_SESSION['nick'] . "'");
-			$row = $result->fetch_assoc();
-			$user = $row["id"];
-			
-			$db->request("INSERT INTO `vote` (`user`, `post`, `value`) VALUES ('" . $user . "', '" . $_GET["id"] . "', '" . $_GET["v"] . "')");
-			header('location: ' . $_GET["ref"]);
-			exit();
+		if (isLogged() && isset($_GET["id"]) && isset($_GET["v"]) && 1 <= $_GET["v"] && $_GET["v"] <= 5 && is_numeric($_GET["id"])) {
+			$user = $_SESSION["id"];
+			$result = $db->request("SELECT COUNT(*) FROM vote WHERE post = '" . $_GET['id'] . "' AND user = '" . $user . "'");
+			$count = $result->fetch_array()[0];
+			if($count){
+				$db->request("UPDATE vote SET value = '" . $_GET["v"] . "' WHERE user = '" . $user . "' AND post = '" . $_GET["id"] . "'");
+			}else{
+				$db->request("INSERT INTO `vote` (`user`, `post`, `value`) VALUES ('" . $user . "', '" . $_GET["id"] . "', '" . $_GET["v"] . "')");
+			}
+			$result = $db->request("SELECT AVG(value), COUNT(*) FROM vote WHERE vote.`post` = " . $_GET['id']);
+			$row = $result->fetch_array();
+			$average = $row[0];
+			$count = $row[1];
+			$result = $db->request("UPDATE post SET note = '" . $average . "', vote_number = '" . $count . "' WHERE id = '" . $_GET["id"] . "'");
 		}
+		header('location: ' . referer());
+		exit();
 		break;
 	case 'post':
 

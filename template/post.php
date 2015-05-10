@@ -12,9 +12,9 @@
 		<ul>
 			<?php for($i = 1; $i <= 5; $i++): ?>
 				<?php if($post->rating()>=$i): ?>
-					<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>&amp;ref=<?= referer() ?>" class="fa fa-star"></a></li>
+						<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>" class="fa fa-star"></a></li>
 				<?php else: ?>
-					<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>&amp;ref=<?= referer() ?>" class="fa fa-star-o"></a></li>
+						<li class="block"><a href="<?= rootURL() ?>action.php?a=vote&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>" class="fa fa-star-o"></a></li>
 				<?php endif ?>
 			<?php endfor ?>
 		</ul>
