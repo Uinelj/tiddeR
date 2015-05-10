@@ -9,8 +9,8 @@
 	</ul>
 	<p class="block third author">
 		<?php if($_SESSION['perms'] === 2 || $_SESSION['id'] === $user->id()): ?>
-				<a href="<?= rootURL() ?>action.php?a=dpost&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>"><i class="fa fa-trash"></i></a>
-				<a href="<?= rootURL() ?>action.php?a=epost&amp;id=<?= $post->id() ?>&amp;v=<?= $i ?>"><i class="fa fa-pencil"></i></a>
+				<a href="<?= rootURL() ?>action.php?a=delPost&amp;id=<?= $post->id() ?>"><i class="fa fa-trash"></i></a>
+				<a href="<?= rootURL() ?>post.php?edit=true&amp;id=<?= $post->id() ?>"><i class="fa fa-pencil"></i></a>
 		<?php else: ?>
 			<a href="<?= rootURL() ?>u/<?= $post->author() ?>"><?= $post->author() ?></a>
 		<?php endif ?>
