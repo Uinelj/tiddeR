@@ -7,13 +7,13 @@
 	~akkes in css by date
 	~uinelj by rating
 	html by rating
-	* by date ( equivalent to 'by date')
+	by date
 
 	Complex string example :
 
 	~uinelj|~akkes in html|css|php by rating
 */
-function searchToRequest($str){
+function searchToRequest($str){ //Transforme une
 	return forgeSQL(parse($str));
 }
 function editOrder($str, $order='date'){
@@ -143,7 +143,7 @@ function forgeString($data){
 		$str .= implode("|", $data['nicks']);
 		$str .= ' ';
 	}
-	if($data['tags'] != NULL){
+	if(isset($data['tags']) && ($data['tags'] != NULL)){
 		$str .= 'in ';
 		$str .= implode("|", $data['tags']);
 		$str .= ' ';

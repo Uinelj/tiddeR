@@ -204,7 +204,6 @@ switch($_GET['a']){
 		$_POST['title'] = htmlspecialchars($_POST['title']);
 		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['id'] = htmlspecialchars($_POST['id']);
-		$_POST['tags']
 		
 		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_POST['id'] ." ");
 		$db->request("DELETE FROM tidder.tagsOfPost WHERE post = " . $_POST['id']);
