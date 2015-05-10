@@ -112,10 +112,10 @@ switch($_GET['a']){
 		exit();
 		break;
 	case 'post':
-
+		$selfpost = false;
 		/* TEMP : LE TEMPS DE POUVOIR GERER LES SELFPOSTS*/
 		if($_POST['link'] == ""){
-			header('location: ' . ROOTURL . 'post.php');
+			$selfpost = true;
 		}
 		/*FIN TEMP*/
 
@@ -134,8 +134,8 @@ switch($_GET['a']){
 			}
 			$_POST['title'] = getTitle($_POST['link']);
 		}
-
-		$POST_['content'] = htmlspecialchars($_POST['content']);
+		//post
+		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['link'] = addslashes($_POST['link']);
 		$_POST['title'] = addslashes($_POST['title']);
 		$_POST['content'] = addslashes($_POST['content']);
@@ -144,6 +144,17 @@ switch($_GET['a']){
 		$db->request($request);
 		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
 		$row = $db->request($request)->fetch_assoc();
+
+		if($selfpost){
+			$db->request("UPDATE `tiddeR`.`post` SET `link` = '" . ROOTURL . "p/" . $row['id'] . "' WHERE `post`.`id` = ". $row['id']);
+		}
+
+		//tags
+		foreach($_POST['tags'] as $tag){
+			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
+			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")");
+		}
+  		//exit();
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;

@@ -16,7 +16,7 @@
 					<ul>
 						<?php foreach($tags as $tag): ?>
 							<li>
-								<input type="checkbox" name="box1" value="<?= $tag ?>"><?= $tag ?>
+								<input type="checkbox" name="tags[]" value="<?= $tag ?>"><?= $tag ?>
 							</li>
 						<?php endforeach ?>
 					</ul>
