@@ -29,9 +29,9 @@
 						<?php foreach($tags as $tag): ?>
 							<li>
 								<?php if(in_array($tag, $post->tags())): ?>
-									<input type="checkbox" name="tags" value="<?= $tag ?>" checked><?= $tag ?>
+									<input type="checkbox" name="tags[]" value="<?= $tag ?>" checked><?= $tag ?>
 								<?php else: ?>
-									<input type="checkbox" name="tags" value="<?= $tag ?>"><?= $tag ?>
+									<input type="checkbox" name="tags[]" value="<?= $tag ?>"><?= $tag ?>
 								<?php endif ?>
 							</li>
 						<?php endforeach ?>
