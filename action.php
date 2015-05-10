@@ -196,24 +196,31 @@ switch($_GET['a']){
 		foreach($_POST['tags'] as $tag){
 			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
 			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")");
-
 		}
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
-	case 'edit':
+	case 'editPost':
 		$_POST['title'] = htmlspecialchars($_POST['title']);
 		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['id'] = htmlspecialchars($_POST['id']);
 		$_POST['tags']
 		
 		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_POST['id'] ." ");
+		$db->request("DELETE FROM tidder.tagsOfPost WHERE post = " . $_POST['id']);
+		foreach($_POST['tags'] as $tag){
+			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
+			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $_POST['id'] . ", " . $resultAssoc['id'] . ")");
+		}
 		header('location :' . $_SERVER['HTTP_REFERER']);
+		exit();
 		break;
 	case 'delPost':
 		$_POST['id'] = htmlspecialchars(string);
 		$db->request("DELETE FROM `tiddeR`.`post` WHERE `post`.`id` =" . $_POST['id']);
 		header('location :' .$_SERVER['HTTP_REFERER']);
+		exit();
+		break;
 	default:
 		break;
 
