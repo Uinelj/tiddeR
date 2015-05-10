@@ -32,13 +32,17 @@ switch($_GET['a']){
 		}
 		break;
 	case 'sign':
+		$result = $db->request("SELECT * FROM user WHERE user.nick = _utf8 '" . htmlspecialchars($_POST['nick']) . "' COLLATE utf8_bin");
+		if(($result->num_rows != 0) || load(htmlspecialchars($_POST['nick']), $csvDb) != false){
+			header('location: ' . ROOTURL . 'login.php?msg=2');
+			exit();
+		}
 		$user = new user(
 			0,
 			htmlspecialchars($_POST['nick']),
 			htmlspecialchars($_POST['mail']),
 			htmlspecialchars(password_hash($_POST['pass'], PASSWORD_BCRYPT)), 
 			3);
-			
 		$result = $db->request("SELECT * FROM user WHERE nick = '" . $user->nick() . "'");
 		if(valid($user) && !is_string($result)){
 			//db
