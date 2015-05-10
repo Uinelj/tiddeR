@@ -13,6 +13,13 @@
 						<h2>Aucun post</h2>
 					<?php endif ?>
 				</ul>
+				<ul id="pagination">
+					<?php if($pages>1): ?>
+						<?php for($i = 1; $i<=$pages; $i++): ?>
+							<li><a href="#"><?= $i ?></a></li>
+						<?php endfor?>
+					<?php endif ?>
+				</ul>
 			</div>
 			<?php require("template/userSidebar.php") ?>
 		</div>

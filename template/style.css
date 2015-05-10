@@ -329,3 +329,12 @@ tr:nth-child(2n+2){
 form li{
 	display: inline;
 }
+
+/* pagination */
+ul#pagination{
+	text-align: center;
+}
+
+#pagination li{
+	display: inline;
+}
