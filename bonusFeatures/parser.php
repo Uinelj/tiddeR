@@ -56,6 +56,7 @@ function editStr($str, $edits){
 	return forgeString($parsed);
 }
 function parse($str){
+	$data['search'] = "";
 	$str = trim($str);
 	if($str[0] == '\\'){
 		$data['search'] = substr($str, 1);
