@@ -127,10 +127,11 @@ switch($_GET['a']){
 		$_POST['title'] = addslashes($_POST['title']);
 		$_POST['content'] = addslashes($_POST['content']);
 		$userId = 2;
-		$request = "INSERT INTO post VALUES(NULL,'" . $_POST['title'] . "', '" . $_POST['link'] . "', '" . $_POST['content'] . "'," . $userId . ", '" . date("Y-m-d H:i:s") . "', " . 0 . ")";
-		print_r($request);
-		print_r($db->request($request));
-		header('location: ' . ROOTURL . 'index.php'); //Faudrait redirect sur son post...
+		$request = "INSERT INTO `post` (`title`, `link`, `content`, `user`, `date`, `note`, `vote_number`) VALUES ('" . $_POST['title'] . "', '" . $_POST['link'] . "', '" . $_POST['content'] . "'," . $userId . ", NOW(), 0, 0)";
+		$db->request($request);
+		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
+		$row = $db->request($request)->fetch_assoc();
+		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
 	default:
