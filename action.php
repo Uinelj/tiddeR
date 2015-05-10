@@ -72,7 +72,7 @@ switch($_GET['a']){
 		break;
 	case 'logout':
 		$_SESSION = array();
-		header('location: ' . referer());
+		header('location: ' . ROOTURL);
 		exit();
 		break;
 	case 'comment':
@@ -98,7 +98,7 @@ switch($_GET['a']){
 			$row = $result->fetch_assoc();
 			$user = $row["id"];
 			
-			$db->request("INSERT INTO `vote` (`user`, `post`, `value`) VALUES ('" . $user . "', '" . $_GET["id"] . "', '" . $_GET["v"] . "')");			
+			$db->request("INSERT INTO `vote` (`user`, `post`, `value`) VALUES ('" . $user . "', '" . $_GET["id"] . "', '" . $_GET["v"] . "')");
 			header('location: ' . $_GET["ref"]);
 			exit();
 		}
