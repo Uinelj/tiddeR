@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.38)
 # Database: tiddeR
-# Generation Time: 2015-05-10 18:17:32 +0000
+# Generation Time: 2015-05-10 22:59:56 +0000
 # ************************************************************
 
 
@@ -48,8 +48,7 @@ VALUES
 	(5,1,3,'plop','2015-05-08 15:46:06'),
 	(6,3,3,'Tellement!','2015-05-08 15:46:18'),
 	(7,2,3,'Moi j\'aime bien!','2015-05-08 15:46:51'),
-	(8,5,5,'The internet is made of cats','2015-05-08 15:59:37'),
-	(9,15,5,'Et c\'est un défi que je propose!','2015-05-10 17:00:59');
+	(8,5,5,'The internet is made of cats','2015-05-08 15:59:37');
 
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -70,7 +69,7 @@ CREATE TABLE `post` (
   PRIMARY KEY (`id`),
   KEY `user` (`user`),
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
@@ -80,18 +79,15 @@ VALUES
 	(1,'Akkes.fr','http://akkes.fr/','Le site parfait de quelqu\'un de parfait.',1,'2015-04-29 23:17:32',5,1),
 	(2,'Uinelj.eu','http://uinelj.eu/','Mon site perso, il est trop bien!',2,'2015-04-30 18:31:55',4,0),
 	(3,'Thunderclap: Contre la loi renseignement','https://www.thunderclap.it/fr/projects/25535-contre-la-loi-renseignement','“Le #PJLRenseignement tant décrié sera voté demain. Pour nos libertés individuelles, nous voulons un débat national ! http://thndr.it/1E3fVkV”',1,'2015-05-02 16:50:40',5,0),
-	(4,'Corporate Ipsum','http://doubleforte.net/widgets/corporate/','Efficiently unleash cross-media information without «cross-media» value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar.',2,'2015-05-02 16:51:49',0,0),
+	(4,'Corporate Ipsum','http://doubleforte.net/widgets/corporate/','Lorem Ipsum en entreprise: Efficiently unleash cross-media information without «cross-media» value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar.',2,'2015-05-02 16:51:49',0,0),
 	(5,'Cat Ipsum','http://www.catipsum.com/','Climb leg rub face on everything give attitude nap all day for under the bed. Chase mice attack feet but rub face on everything hopped up on goofballs.',1,'2015-05-02 16:56:10',2,0),
 	(6,'Tuna Ipsum','http://tunaipsum.com/','European minnow priapumfish mosshead warbonnet shrimpfish bigscale. Cutlassfish porbeagle shark ricefish walking catfish glassfish Black swallower.',1,'2015-05-02 16:56:10',0,0),
 	(7,' Meet the Ipsums ','http://meettheipsums.com/','Parce qu\'il n\'y a jamais assez de Ipsums!',2,'2015-05-10 14:53:42',0,0),
-	(8,'Cat Ipsum | A Furrier Alternative to Lorem Ipsum','http://www.catipsum.com/','Trop de mignonité!',2,'2015-05-10 15:08:11',0,0),
 	(9,'CHIP - The World\'s First Nine Dollar Computer by Next Thing Co. &mdash; Kickstarter','https://www.kickstarter.com/projects/1598272670/chip-the-worlds-first-9-computer','Pas cher cet ordi!',2,'2015-05-10 15:21:50',0,0),
-	(11,'Humble Mobile Bundle 12 (pay what you want and help charity)','https://www.humblebundle.com/mobile','Humble Mobile Bundle is back!',2,'2015-05-10 15:24:07',3,1),
-	(14,'  CTHOOKIE MONSTER - NeatoShop','https://www.neatoshop.com/product/CTHOOKIE-MONSTER','I\'m so buying this!',5,'2015-05-10 15:45:15',3,1),
-	(15,'Tweets en rapport avec le hashtag #DefiLatnel sur Twitter','https://twitter.com/hashtag/DefiLatnel?src=hash','Un défi à la con!',5,'2015-05-10 16:51:10',2,1),
-	(17,'Bienvenue!','Bienvenue!','Bienvenue sur tidder, le journal du Web',5,'2015-05-10 17:45:20',4,1),
 	(18,'Vous Etes Perdu ?','http://perdu.com','J\'adore ce site!',5,'2015-05-10 17:46:15',0,0),
-	(19,'Blade Runner c\'est pas fou non plus','http://bladerunnercestpasfounonplus.website/','OK quand il est sorti c\'est surement ce qui se faisait de mieux, l\'ambiance et les décors sont exceptionnels, mais on ne va pas se mentir, ça a quand même vieilli.\r\n\r\nVous aimez ce film par habitude, parce que vous l\'avez vu jeune, parce que tout le monde dit qu\'il est « culte », mais ne nous voilons pas la face, il ne s\'y passe pas grand chose en vrai.',13,'2015-05-10 19:04:52',0,0);
+	(19,'Blade Runner c\'est pas fou non plus','http://bladerunnercestpasfounonplus.website/','OK quand il est sorti c\'est surement ce qui se faisait de mieux, l\'ambiance et les décors sont exceptionnels, mais on ne va pas se mentir, ça a quand même vieilli.\r\n\r\nVous aimez ce film par habitude, parce que vous l\'avez vu jeune, parce que tout le monde dit qu\'il est « culte », mais ne nous voilons pas la face, il ne s\'y passe pas grand chose en vrai.',13,'2015-05-10 19:04:52',0,0),
+	(26,'Font Awesome Icons','http://fontawesome.io/icons/','Tout pleins d’icônes pour le web',3,'2015-05-10 20:22:26',5,1),
+	(27,'Bienvenue!','http://localhost:8888/Web/tiddeR/p/27','bienvenue sur tidder, le journal du web. Créé par Uinelj &amp; Ak:kes.',3,'2015-05-10 23:17:56',0,0);
 
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -135,7 +131,7 @@ CREATE TABLE `tagsOfPost` (
   KEY `tags` (`tag`),
   CONSTRAINT `tagsofpost_ibfk_1` FOREIGN KEY (`post`) REFERENCES `post` (`id`),
   CONSTRAINT `tagsofpost_ibfk_2` FOREIGN KEY (`tag`) REFERENCES `tags` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `tagsOfPost` WRITE;
 /*!40000 ALTER TABLE `tagsOfPost` DISABLE KEYS */;
@@ -144,12 +140,20 @@ INSERT INTO `tagsOfPost` (`id`, `post`, `tag`)
 VALUES
 	(1,1,1),
 	(2,2,1),
-	(3,4,2),
 	(4,5,2),
 	(5,6,2),
 	(6,1,6),
 	(7,2,6),
-	(8,19,6);
+	(11,27,6),
+	(12,26,5),
+	(13,19,9),
+	(14,18,3),
+	(15,9,5),
+	(16,9,9),
+	(17,7,2),
+	(18,7,5),
+	(19,4,2),
+	(20,3,6);
 
 /*!40000 ALTER TABLE `tagsOfPost` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -196,7 +200,7 @@ CREATE TABLE `vote` (
   `value` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `vote_ibfk_1` FOREIGN KEY (`id`) REFERENCES `post` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 LOCK TABLES `vote` WRITE;
 /*!40000 ALTER TABLE `vote` DISABLE KEYS */;
@@ -208,7 +212,8 @@ VALUES
 	(3,5,11,3),
 	(4,5,14,3),
 	(5,5,17,4),
-	(6,5,16,2);
+	(6,5,16,2),
+	(7,3,26,5);
 
 /*!40000 ALTER TABLE `vote` ENABLE KEYS */;
 UNLOCK TABLES;
