@@ -8,6 +8,8 @@ if(isset($_GET["msg"])){
 		case 1:
 		$message = "Nom d'utilisateur ou phrase de passe incorrecte.";
 		break;
+		case 2:
+		$message = "Nom d'utilisateur déjà pris.";
 	}
 }
 
