@@ -194,12 +194,10 @@ switch($_GET['a']){
 
 		//tags
 		foreach($_POST['tags'] as $tag){
-			print_r($tag);
 			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
-			echo "INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")";
+			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")");
 
 		}
-		exit();
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
