@@ -41,7 +41,7 @@ function referer(){
 	}
 }
 
-function getTitle($Url){ //StackOverflow
+function getTitle($Url){ //StackOverflow. Permet de récupérer le titre d'une page web.
 	$str = file_get_contents($Url);
 	if(strlen($str)>0){
 		$str = str_replace(array("\r", "\n"), "", $str);

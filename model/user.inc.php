@@ -1,7 +1,7 @@
 <?php
 	require_once 'user.php';
 
-	function initDb($path){ //TODO: WARN si PHP peut pas écrire dans le dossier.
+	function initDb($path){ //Initialise le fichier CSV de données utilisateur
 		if(file_exists($path)){
 			if(is_writable($path)){ //Tout est OK.
 				return true;
@@ -13,25 +13,24 @@
 	return file_put_contents($path, ''); //On crée le csv.
 	}
 
-	function valid($user){
+	function valid($user){ //Vérifie si les infos d'un candidat sont bonnes. 
 		$nickRegex = "/[\w\d]\w{2,32}/";
 		if(!preg_match($nickRegex, $user->nick())){
-			echo "ERR: Longeur et/ou caractères de nickname incorrects.";
 			return false;
 		}
-		//vérifier le mdp par password_get_info ?
+		//Amélioration : Vérifier le mot de passe par password_get_info ?
 		return true;
 	}
 
-	function store($user, $file){ //flock ?
+	function store($user, $file){ //Stocke l'utilisateur dans le fichier.
 		$f = fopen($file, "a+");
-        if($f == false){ //Find more elegant ?
+        if($f == false){
                 return false;
         }
         return fputcsv($f, (array) $user);
 	}
 
-	function load($nick, $file){
+	function load($nick, $file){ //Charge l'utilisateur depuis le fichier
 		$f = fopen($file, "r");
 		while(!feof($f)){
 			$cur = fgetcsv($f);
@@ -40,12 +39,11 @@
 				return new user($cur[0], $cur[1], $cur[2], $cur[3], intval($cur[4]));
 			}
 		}
-		//print_r("pas trouvé");
 		fclose($f);
 		return false;
 	}
 
-	function del($nick, $file){ //false si user pas trouvé.
+	function del($nick, $file){ //Tente de supprimer l'utilisateur depuis le fichier.
 		$users =  file($file);
 		for($i=0; $i<sizeof($users); $i++){
 			$cur = str_getcsv($users[$i]);
@@ -65,7 +63,7 @@
 		return false;
 	}
 	
-	function permNumberToSQL($int){
+	function permNumberToSQL($int){ //Permet de convertir les premissions utilisateur codées en int dans le PHP, en VARCHAR, utilisés dans la base.
 		switch($int){
 			case 1:
 				return "user";
@@ -84,7 +82,7 @@
 		}
 	}
 
-	function permSQLToNumber($string){
+	function permSQLToNumber($string){ // L'inverse.
 		switch($string){
 			case "user":
 				return 1;

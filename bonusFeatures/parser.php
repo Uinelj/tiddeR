@@ -1,5 +1,9 @@
 <?php
 /*
+	Julien ABADJI
+	Gère le parsage des chaînes de caractère permettant la navigation
+*/
+/*
 	Sample strings :
 
 	~uinelj in html
@@ -13,15 +17,15 @@
 
 	~uinelj|~akkes in html|css|php by rating
 */
-function searchToRequest($str){ //Transforme une
+function searchToRequest($str){ //Transforme une chaîne de caractères en requête SQL
 	return forgeSQL(parse($str));
 }
-function editOrder($str, $order='date'){
+function editOrder($str, $order='date'){ //Modifie l'ordre de tri à une string.
 	$parsed = parse($str);
 	$parsed['order'] = $order;
 	return forgeString($parsed);
 }
-function addTag($str, $tag){
+function addTag($str, $tag){ //Ajoute un tag à une string.
 	$parsed = parse($str);
 	if(!array_key_exists('tags', $parsed)){
 		$parsed['tags'] = array($tag);
@@ -30,16 +34,15 @@ function addTag($str, $tag){
 	}
 	return forgeString($parsed);
 }
-function rmTag($str, $tag){
+function rmTag($str, $tag){ //Retire un tag à une string.
 	$parsed = parse($str);
-	//print_r($parsed['tags']);
 	$key = array_search($tag, $parsed['tags']);
 	if( $key !== false){
 		array_splice($parsed['tags'], $key, 1);
 	}
 	return forgeString($parsed);
 }
-function editStr($str, $edits){
+function editStr($str, $edits){ //Modifie divers éléments dans une string, basé sur un tableau de modification de données.
 	$parsed = parse($str);
 	if(isset($edits['nicks'])){
 		$parsed['nicks'] = $edits['nicks'];
@@ -55,7 +58,7 @@ function editStr($str, $edits){
 	}
 	return forgeString($parsed);
 }
-function parse($str){
+function parse($str){ //Parse la chaîne pour en sortir un tableau de données. ( pseudos, tags, ordre.. )
 	$data['search'] = "";
 	$str = trim($str);
 	if($str[0] == '\\'){
@@ -81,7 +84,7 @@ function parse($str){
 	}
 	return $data;
 }
-function forgeSQL($data){
+function forgeSQL($data){ //Forge une requête SQL à partir d'un tableau de données.
 	$select[] = "post.*";
 	$from[] = "post";
 	//$order[] = "date";
@@ -134,7 +137,7 @@ function forgeSQL($data){
 	return $sql;
 }
 
-function forgeString($data){
+function forgeString($data){ //Force une chaîne de caractères à partir d'un tableau de données. 
 	$str ="";
 	if(isset($data['nicks']) && $data['nicks'] != NULL){
 		foreach ($data['nicks'] as &$nick) {

@@ -1,15 +1,20 @@
 <?php
+/*
+	ABADJI & DESPORTES
+
+	Gère toutes les actions du site web, relatives au login, au postage, etc.
+*/
 require_once "utils.php";
 require_once './model/user.inc.php'; 
 require_once './utils.php';
 $csvDb = USERS;
 
 initDb($csvDb);
-//print_r($_SESSION);
+
 switch($_GET['a']){
 	//admin actions
 	case 'accept':
-		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){ //On vérifie si on est correctement loggué en administrateur
 			$result = $db->request("SELECT * FROM user WHERE id = " . intval($_GET['id']));
 			$row = $result->fetch_assoc();
 			$user = new user(
@@ -18,7 +23,7 @@ switch($_GET['a']){
 				$row["mail"],
 				$row["pass"], 
 				permSQLToNumber($row["permitions"]));
-			store($user, $csvDb);
+			store($user, $csvDb); //On enregistre l'utilisateur dans la base de donnée des users, le fichier CSV
 			$result = $db->request("UPDATE user SET permitions = 'user', pass = NULL WHERE id = '" . $user->id() . "'");
 			header('location: ' . ROOTURL . 'admin.php');
 			exit();
@@ -27,7 +32,6 @@ switch($_GET['a']){
 	case 'refuse':
 		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
 			$result = $db->request("DELETE FROM user WHERE id = " . intval($_GET['id']));
-			
 			header('location: ' . ROOTURL . 'admin.php');
 			exit();
 		}
@@ -53,18 +57,18 @@ switch($_GET['a']){
 		header('location: ' . ROOTURL . 'admin.php');
 		exit();
 		break;
-	case 'dtag':
+	case 'dtag': //Suppression d'un tag
 		if($_SESSION['perms']==2 && isset($_GET["name"])){
 			$result = $db->request("SELECT * FROM `tags` WHERE `name` = '" . $_GET['name'] . "'");
 			$row = $result->fetch_assoc();
 			$tid = $row["id"];
-			$result = $db->request("DELETE FROM `tagsOfPost` WHERE `tag` = " . $tid);
-			$result = $db->request("DELETE FROM `tags` WHERE `id` = " . $tid);
+			$result = $db->request("DELETE FROM `tagsOfPost` WHERE `tag` = " . $tid); //On retire les liens des posts à cet ancien tag
+			$result = $db->request("DELETE FROM `tags` WHERE `id` = " . $tid); //On retire le tag en lui même
 		}
 		header('location: ' . ROOTURL . 'admin.php');
 		exit();
 		break;
-	case 'atag':
+	case 'atag': //Ajout d'un tag
 		if($_SESSION['perms']==2 && isset($_POST["tag"])){
 			$result = $db->request("INSERT INTO `tags` (`name`) VALUES ('" . $_POST["tag"] . "')");
 		}
@@ -73,21 +77,20 @@ switch($_GET['a']){
 		break;
 	//accounts actions
 	case 'sign':
-		$result = $db->request("SELECT * FROM user WHERE user.nick = _utf8 '" . htmlspecialchars($_POST['nick']) . "' COLLATE utf8_bin");
-		if(($result->num_rows != 0) || load(htmlspecialchars($_POST['nick']), $csvDb) != false){
+		$result = $db->request("SELECT * FROM user WHERE user.nick = _utf8 '" . htmlspecialchars($_POST['nick']) . "' COLLATE utf8_bin"); //On utilise _urf8 et COLLATE pour éviter les soucis de casse
+		if(($result->num_rows != 0) || load(htmlspecialchars($_POST['nick']), $csvDb) != false){ //Si l'user existe dans la BDD ( on aurait 0 rows sinon  ), ou dans le CSV ( le load renverrait autre chose que false )
 			header('location: ' . ROOTURL . 'login.php?msg=2');
 			exit();
 		}
-		$user = new user(
+		$user = new user( //Si l'user n'existe pas on le crée 
 			0,
 			htmlspecialchars($_POST['nick']),
 			htmlspecialchars($_POST['mail']),
-			htmlspecialchars(password_hash($_POST['pass'], PASSWORD_BCRYPT)), 
+			htmlspecialchars(password_hash($_POST['pass'], PASSWORD_BCRYPT)), //Hachage du mot de passe
 			3);
 		$result = $db->request("SELECT * FROM user WHERE nick = '" . $user->nick() . "'");
-		if(valid($user) && !is_string($result)){
-			//db
-			$db->request("INSERT INTO `user` (`nick`, `mail`, `permitions`, `pass`) VALUES ('" . $user->nick() . "', '" . $user->mail() . "', 'candidate', '" . $user->hash() . "')");
+		if(valid($user) && !is_string($result)){ //On vérifie la validité des infos ( nickname )
+			$db->request("INSERT INTO `user` (`nick`, `mail`, `permitions`, `pass`) VALUES ('" . $user->nick() . "', '" . $user->mail() . "', 'candidate', '" . $user->hash() . "')"); //On insère dans la DB
 			header('location: ' . ROOTURL . 'login.php?msg=0');
 			exit();
 		}
@@ -97,21 +100,18 @@ switch($_GET['a']){
 	case 'log':
 		$user = load(htmlspecialchars($_POST['nick']), $csvDb);
 
-		if(($user != false) && (password_verify($_POST['pass'], $user->hash()))){
-			//set($user->hash);
-			//$_SESSION['user'] = $user; Cool mais il faudrait des fonctions magiques.
+		if(($user != false) && (password_verify($_POST['pass'], $user->hash()))){ //Si on peut charger l'user et que son mot de passe est correct
 			$_SESSION['nick'] = $user->nick();
 			$_SESSION['mail'] = $user->mail();
 			$_SESSION['perms'] = $user->perms();
 			$_SESSION['id'] = $user->id();
-			//print_r($_SESSION);
-			header('location: ' . ROOTURL);
+			header('location: ' . ROOTURL); //On set la session et on envoie l'user sur la home
 			exit();
 		}
 		header('location: ' . ROOTURL . 'login.php?msg=1');
 		exit();
 		break;
-	case 'logout':
+	case 'logout': //On détruit la session. =array() est plus rapide selon divers benchmarks.
 		$_SESSION = array();
 		header('location: ' . ROOTURL);
 		exit();
@@ -155,11 +155,10 @@ switch($_GET['a']){
 		break;
 	case 'post':
 
-		$selfpost = false;
+		$selfpost = false; //Un selfpost est un post sans lien. Juste de la "description".
 		
 		if($_POST['link'] == ""){
 			$selfpost = true;
-			//header('location: ' . ROOTURL . 'post.php');
  		}
 
 		if(($_POST['link'] != "") && (!parse_url($_POST['link']))){
@@ -168,7 +167,6 @@ switch($_GET['a']){
 			exit();
 		}
 		if($_POST['title'] == ""){
-			//echo 'pas de titre';
 			if($_POST['link'] == ""){
 				echo 'pas de lien';
 				// Un selfpost nécessite un titre.
@@ -177,7 +175,7 @@ switch($_GET['a']){
 			}
 			$_POST['title'] = getTitle($_POST['link']);
 		}
-
+		//sanitize
 		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['link'] = addslashes($_POST['link']);
 		$_POST['title'] = addslashes($_POST['title']);
@@ -187,20 +185,20 @@ switch($_GET['a']){
 		$db->request($request);
 		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
 		$row = $db->request($request)->fetch_assoc();
-		if($selfpost){
+		if($selfpost){ //Si selfpost, le lien est en fait le lien du selfpost, forgé à partir de l'id
 			$_POST['link'] = ROOTURL . "p/" . $row['id'];
-			$db->request("UPDATE `tiddeR`.`post` SET `link` = '" . $_POST['link'] . "' WHERE `post`.`id` = ". $row['id']);
+			$db->request("UPDATE `tiddeR`.`post` SET `link` = '" . $_POST['link'] . "' WHERE `post`.`id` = ". $row['id']); //On UPDATE juste après avoir inséré le selfpost pour éviter des problèmes de concurrence.  
 		}
 
 		//tags
 		foreach($_POST['tags'] as $tag){
 			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
-			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")");
+			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")"); //On attribue au post ses tags via la table tagsOfPost
 		}
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;
-	case 'editPost':
+	case 'editPost': //On remplace certaines parties du post. 
 		$_POST['title'] = htmlspecialchars($_POST['title']);
 		$_POST['content'] = htmlspecialchars($_POST['content']);
 		$_POST['id'] = htmlspecialchars($_POST['id']);
@@ -214,7 +212,7 @@ switch($_GET['a']){
 		header('location :' . $_SERVER['HTTP_REFERER']);
 		exit();
 		break;
-	case 'delPost':
+	case 'delPost': //Suppression du post !
 		$_POST['id'] = htmlspecialchars(string);
 		$db->request("DELETE FROM `tiddeR`.`post` WHERE `post`.`id` =" . $_POST['id']);
 		header('location :' .$_SERVER['HTTP_REFERER']);
