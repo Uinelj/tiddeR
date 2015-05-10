@@ -9,7 +9,7 @@ Installation
 Un serveur *AMP ( Apache, MySQL, PHP) est requis, ainsi que le module rewrite d'apache.
 
 - la configuration est à préciser dans ./config.php
-- le dossier utilisé pour les utilisateurs doit être en 777 ( ou moins, mais sans garantie de fonctionnement )
+- le dossier utilisé pour les utilisateurs doit être en accessible en écriture par le serveur
 
 Compte administrateur de base : 
 
