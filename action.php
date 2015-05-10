@@ -7,6 +7,7 @@ $csvDb = USERS;
 initDb($csvDb);
 //print_r($_SESSION);
 switch($_GET['a']){
+	//admin actions
 	case 'accept':
 		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
 			$result = $db->request("SELECT * FROM user WHERE id = " . intval($_GET['id']));
@@ -31,6 +32,46 @@ switch($_GET['a']){
 			exit();
 		}
 		break;
+	case 'ban':
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+			$result = $db->request("UPDATE user SET permitions = 'ban' WHERE id = " . intval($_GET['id']));
+		}
+		header('location: ' . ROOTURL . 'admin.php');
+		exit();
+		break;
+	case 'admin':
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+			$result = $db->request("UPDATE user SET permitions = 'admin' WHERE id = " . intval($_GET['id']));
+		}
+		header('location: ' . ROOTURL . 'admin.php');
+		exit();
+		break;
+	case 'delete':
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+			$result = $db->request("DELETE FROM `user` WHERE `id` = " . intval($_GET['id']));
+		}
+		header('location: ' . ROOTURL . 'admin.php');
+		exit();
+		break;
+	case 'dtag':
+		if($_SESSION['perms']==2 && isset($_GET["name"])){
+			$result = $db->request("SELECT * FROM `tags` WHERE `name` = '" . $_GET['name'] . "'");
+			$row = $result->fetch_assoc();
+			$tid = $row["id"];
+			$result = $db->request("DELETE FROM `tagsOfPost` WHERE `tag` = " . $tid);
+			$result = $db->request("DELETE FROM `tags` WHERE `id` = " . $tid);
+		}
+		header('location: ' . ROOTURL . 'admin.php');
+		exit();
+		break;
+	case 'atag':
+		if($_SESSION['perms']==2 && isset($_POST["tag"])){
+			$result = $db->request("INSERT INTO `tags` (`name`) VALUES ('" . $_POST["tag"] . "')");
+		}
+		header('location: ' . ROOTURL . 'admin.php');
+		exit();
+		break;
+	//accounts actions
 	case 'sign':
 		$result = $db->request("SELECT * FROM user WHERE user.nick = _utf8 '" . htmlspecialchars($_POST['nick']) . "' COLLATE utf8_bin");
 		if(($result->num_rows != 0) || load(htmlspecialchars($_POST['nick']), $csvDb) != false){
@@ -75,6 +116,7 @@ switch($_GET['a']){
 		header('location: ' . ROOTURL);
 		exit();
 		break;
+	//users actions
 	case 'comment':
 		if(isLogged()){
 			//sanitize input
@@ -112,10 +154,10 @@ switch($_GET['a']){
 		exit();
 		break;
 	case 'post':
-		$selfpost = false;
+
 		/* TEMP : LE TEMPS DE POUVOIR GERER LES SELFPOSTS*/
 		if($_POST['link'] == ""){
-			$selfpost = true;
+			header('location: ' . ROOTURL . 'post.php');
 		}
 		/*FIN TEMP*/
 
@@ -134,8 +176,8 @@ switch($_GET['a']){
 			}
 			$_POST['title'] = getTitle($_POST['link']);
 		}
-		//post
-		$_POST['content'] = htmlspecialchars($_POST['content']);
+
+		$POST_['content'] = htmlspecialchars($_POST['content']);
 		$_POST['link'] = addslashes($_POST['link']);
 		$_POST['title'] = addslashes($_POST['title']);
 		$_POST['content'] = addslashes($_POST['content']);
@@ -144,17 +186,6 @@ switch($_GET['a']){
 		$db->request($request);
 		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
 		$row = $db->request($request)->fetch_assoc();
-
-		if($selfpost){
-			$db->request("UPDATE `tiddeR`.`post` SET `link` = '" . ROOTURL . "p/" . $row['id'] . "' WHERE `post`.`id` = ". $row['id']);
-		}
-
-		//tags
-		foreach($_POST['tags'] as $tag){
-			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
-			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $row['id'] . ", " . $resultAssoc['id'] . ")");
-		}
-  		//exit();
 		header('location: ' . ROOTURL . 'p/' . $row["id"]);
 		exit();
 		break;

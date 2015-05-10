@@ -8,8 +8,17 @@ if($_SESSION["perms"]!==2){
 	exit();
 }
 
+//candidates
 $result = $db->request("SELECT * FROM user WHERE permitions = 'candidate'");
-//data preparation
+$candidates = array();
+while ($row = $result->fetch_assoc()) {	
+	//user	
+	$user = new user($row["id"], $row["nick"], $row["mail"], null, $row["permitions"]);
+	array_push($candidates, $user);
+}
+
+//user
+$result = $db->request("SELECT * FROM user WHERE permitions != 'candidate'");
 $users = array();
 while ($row = $result->fetch_assoc()) {	
 	//user	
