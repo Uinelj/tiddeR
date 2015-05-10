@@ -62,6 +62,7 @@ switch($_GET['a']){
 			$_SESSION['nick'] = $user->nick();
 			$_SESSION['mail'] = $user->mail();
 			$_SESSION['perms'] = $user->perms();
+			$_SESSION['id'] = $user->id();
 			//print_r($_SESSION);
 			header('location: ' . ROOTURL);
 			exit();
@@ -130,7 +131,7 @@ switch($_GET['a']){
 		$_POST['link'] = addslashes($_POST['link']);
 		$_POST['title'] = addslashes($_POST['title']);
 		$_POST['content'] = addslashes($_POST['content']);
-		$userId = 2;
+		$userId = $_SESSION['id'];
 		$request = "INSERT INTO `post` (`title`, `link`, `content`, `user`, `date`, `note`, `vote_number`) VALUES ('" . $_POST['title'] . "', '" . $_POST['link'] . "', '" . $_POST['content'] . "'," . $userId . ", NOW(), 0, 0)";
 		$db->request($request);
 		$request = "SELECT id FROM post WHERE post.link = '" . $_POST['link'] . "'";
