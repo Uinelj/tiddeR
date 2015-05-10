@@ -202,7 +202,14 @@ switch($_GET['a']){
 		exit();
 		break;
 	case 'edit':
-
+		$_POST['title'] = htmlspecialchars($_POST['title']);
+		$_POST['content'] = htmlspecialchars($_POST['content']);
+		$_POST['id'] = htmlspecialchars($_POST['id']);
+		$_POST['tags']
+		
+		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_POST['id'] ." ");
+		header('location :' . $_SERVER['HTTP_REFERER']);
+		break;
 	default:
 		break;
 
