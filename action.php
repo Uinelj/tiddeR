@@ -210,6 +210,10 @@ switch($_GET['a']){
 		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_POST['id'] ." ");
 		header('location :' . $_SERVER['HTTP_REFERER']);
 		break;
+	case 'delPost':
+		$_POST['id'] = htmlspecialchars(string);
+		$db->request("DELETE FROM `tiddeR`.`post` WHERE `post`.`id` =" . $_POST['id']);
+		header('location :' .$_SERVER['HTTP_REFERER']);
 	default:
 		break;
 
