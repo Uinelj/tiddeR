@@ -4,19 +4,17 @@ require_once "utils.php";
 //search parse
 require_once "model/user.php";
 if($_SESSION["perms"]!==2){
-	//header('location: ' . referer());
-	//exit();
+	header('location: ' . referer());
+	exit();
 }
 
-$result = $db->request("SELECT * FROM user");
+$result = $db->request("SELECT * FROM user WHERE permitions = 'candidate'");
 //data preparation
 $users = array();
 while ($row = $result->fetch_assoc()) {	
-	//user
-	$user = $userRow["nick"];
-	
-	$post = new user($row["nick"], $row["$mail"], 0, $row["perms"]);
-	array_push($posts, $post);
+	//user	
+	$user = new user($row["id"], $row["nick"], $row["mail"], null, $row["permitions"]);
+	array_push($users, $user);
 }
 
 //list tags

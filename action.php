@@ -4,21 +4,47 @@ require_once './model/user.inc.php';
 require_once './utils.php';
 $csvDb = USERS;
 
-
 initDb($csvDb);
 //print_r($_SESSION);
 switch($_GET['a']){
+	case 'accept':
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+			$result = $db->request("SELECT * FROM user WHERE id = " . intval($_GET['id']));
+			$row = $result->fetch_assoc();
+			$user = new user(
+				$row["id"],
+				$row["nick"],
+				$row["mail"],
+				$row["pass"], 
+				permSQLToNumber($row["permitions"]));
+				var_dump($row["permitions"]);
+				var_dump(permSQLToNumber($row["permitions"]));
+			store($user, $csvDb);
+			$result = $db->request("UPDATE user SET permitions = 'user', pass = NULL WHERE id = '" . $user->id() . "'");
+			header('location: ' . ROOTURL . 'admin.php');
+			exit();
+		}
+		break;
+	case 'refuse':
+		if($_SESSION['perms']==2 && isset($_GET["id"]) && is_int(intval($_GET["id"]))){
+			$result = $db->request("DELETE FROM user WHERE id = " . intval($_GET['id']));
+			
+			header('location: ' . ROOTURL . 'admin.php');
+			exit();
+		}
+		break;
 	case 'sign':
 		$user = new user(
+			0,
 			htmlspecialchars($_POST['nick']),
 			htmlspecialchars($_POST['mail']),
 			htmlspecialchars(password_hash($_POST['pass'], PASSWORD_BCRYPT)), 
-			'1'
-			);
-		if(valid($user) && !load($user->nick(), $csvDb)){
-			store($user, $csvDb);
+			3);
+			
+		$result = $db->request("SELECT * FROM user WHERE nick = '" . $user->nick() . "'");
+		if(valid($user) && !is_string($result)){
 			//db
-			$db->request("INSERT INTO `user` (`nick`, `mail`) VALUES ('" . $user->nick() . "', '" . $user->mail() . "')");
+			$db->request("INSERT INTO `user` (`nick`, `mail`, `permitions`, `pass`) VALUES ('" . $user->nick() . "', '" . $user->mail() . "', 'candidate', '" . $user->hash() . "')");
 			header('location: ' . ROOTURL . 'login.php?msg=0');
 			exit();
 		}

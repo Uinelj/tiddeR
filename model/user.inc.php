@@ -35,9 +35,9 @@
 		$f = fopen($file, "r");
 		while(!feof($f)){
 			$cur = fgetcsv($f);
-			if($cur[0] == $nick){
+			if($cur[1] == $nick){
 				fclose($f);
-				return new user($cur[0], $cur[1], $cur[2], $cur[3]);
+				return new user($cur[0], $cur[1], $cur[2], $cur[3], intval($cur[4]));
 			}
 		}
 		//print_r("pas trouvé");
@@ -64,5 +64,42 @@
 		}
 		return false;
 	}
+	
+	function permNumberToSQL($int){
+		switch($int){
+			case 1:
+				return "user";
+				break;
+			case 2:
+				return "admin";
+				break;
+			case 3:
+				return "candidate";
+				break;
+			case 4:
+				return "ban";
+				break;
+			default:
+				return false;
+		}
+	}
 
+	function permSQLToNumber($string){
+		switch($string){
+			case "user":
+				return 1;
+				break;
+			case "admin":
+				return 2;
+				break;
+			case "candidate":
+				return 3;
+				break;
+			case "ban":
+				return 4;
+				break;
+			default:
+				return false;
+		}
+	}
 ?>

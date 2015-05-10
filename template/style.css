@@ -16,7 +16,7 @@ a{
 	text-decoration: none;
 }
 
-h1, h2, h3{
+h1, h2, h3, th{
 	margin: 0;
 	font-family: 'Playfair Display SC', serif;
 }
@@ -316,4 +316,15 @@ input{
 
 textarea{
 	width: 99.1%;
+}
+
+/* admin */
+table{
+	width: 15cm;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+tr:nth-child(2n+2){
+	background-color: #f0f0f0;
 }
