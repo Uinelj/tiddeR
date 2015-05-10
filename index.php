@@ -29,6 +29,9 @@ while ($row = $result->fetch_assoc()) {
 	array_push($posts, $post);
 }
 
+//count
+$pages = ceil(66/10);
+
 //list tags
 $tags = array();
 $result = $db->request("SELECT * FROM `tags`");
