@@ -42,9 +42,10 @@ function referer(){
 }
 
 function getTitle($Url){ //StackOverflow
-    $str = file_get_contents($Url);
-    if(strlen($str)>0){
-        preg_match("/\<title\>(.*)\<\/title\>/",$str,$title);
-        return $title[1];
-    }
+	$str = file_get_contents($Url);
+	if(strlen($str)>0){
+		$str = str_replace(array("\r", "\n"), "", $str);
+		preg_match("/\<title\>(.*)\<\/title\>/",$str,$title);
+		return $title[1];
+	}
 }
