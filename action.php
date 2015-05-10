@@ -213,7 +213,7 @@ switch($_GET['a']){
 		exit();
 		break;
 	case 'delPost': //Suppression du post !
-		$_POST['id'] = htmlspecialchars(string);
+		$_POST['id'] = htmlspecialchars($_POST['id']);
 		$db->request("DELETE FROM `tiddeR`.`post` WHERE `post`.`id` =" . $_POST['id']);
 		header('location :' .$_SERVER['HTTP_REFERER']);
 		exit();
