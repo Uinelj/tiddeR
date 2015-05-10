@@ -201,15 +201,14 @@ switch($_GET['a']){
 	case 'editPost': //On remplace certaines parties du post. 
 		$_POST['title'] = htmlspecialchars($_POST['title']);
 		$_POST['content'] = htmlspecialchars($_POST['content']);
-		$_POST['id'] = htmlspecialchars($_POST['id']);
-		
-		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_POST['id'] ." ");
-		$db->request("DELETE FROM tidder.tagsOfPost WHERE post = " . $_POST['id']);
+		$_GET['id'] = htmlspecialchars($_GET['id']);
+		$db->request("UPDATE `tiddeR`.`post` SET `title` = '" . $_POST['title'] . "', `content` = '" . $_POST['content'] . "' WHERE `post`.`id` = " . $_GET['id'] ." ");
+		$db->request("DELETE FROM tidder.tagsOfPost WHERE post = " . $_GET['id']);
 		foreach($_POST['tags'] as $tag){
 			$resultAssoc = $db->request("SELECT id FROM tags WHERE tags.name = '" . $tag . "'")->fetch_assoc();
-			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $_POST['id'] . ", " . $resultAssoc['id'] . ")");
+			$db->request("INSERT INTO tagsOfPost VALUES (NULL, " . $_GET['id'] . ", " . $resultAssoc['id'] . ")");
 		}
-		header('location: ' . ROOTURL . 'p/' . $_POST['id']);
+		header('location: ' . ROOTURL . 'p/' . $_GET['id']);
 		exit();
 		break;
 	case 'delPost': //Suppression du post !
