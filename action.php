@@ -17,8 +17,6 @@ switch($_GET['a']){
 				$row["mail"],
 				$row["pass"], 
 				permSQLToNumber($row["permitions"]));
-				var_dump($row["permitions"]);
-				var_dump(permSQLToNumber($row["permitions"]));
 			store($user, $csvDb);
 			$result = $db->request("UPDATE user SET permitions = 'user', pass = NULL WHERE id = '" . $user->id() . "'");
 			header('location: ' . ROOTURL . 'admin.php');
